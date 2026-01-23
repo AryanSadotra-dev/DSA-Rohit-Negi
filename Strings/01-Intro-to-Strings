@@ -1,0 +1,266 @@
+/*
+====================================================================
+📘 Introduction to STRINGS in C++
+(Complete Lecture Flow – No Skips)
+====================================================================
+
+We study Data Structures and Algorithms because we deal with data. Data
+must be stored properly and accessed fast. So the first and most basic
+question is always: what type of data do we have?
+
+--------------------------------------------------------------------
+Types of Data (Quick Revision)
+--------------------------------------------------------------------
+If the data is numbers like 1, 2, 3, 4, then we store it in int.
+If the data is decimal values like 3.14 or 9.81, we use float or double.
+If the data represents true or false, we use bool.
+If the data is a single alphabet like A, B, C, then we use char.
+
+So far, all data types work perfectly for their respective use cases.
+
+--------------------------------------------------------------------
+Real-World Problem: Why Strings Are Needed
+--------------------------------------------------------------------
+Consider a real-world example such as an email ID:
+rohitnegi@gmail.com
+
+This is not an int, not a float, not a bool, and not a single char.
+However, each individual character is a char. This means text is simply
+multiple characters combined together. Therefore, we need a way to
+store multiple characters as a single unit. This is where strings come
+into the picture.
+
+--------------------------------------------------------------------
+Character Array (Before String Concept)
+--------------------------------------------------------------------
+To store a word like APPLE, we can use a character array:
+
+char arr[5] = {'A', 'P', 'P', 'L', 'E'};
+
+Memory representation:
+Index :  0   1   2   3   4
+Value :  A   P   P   L   E
+
+The text is stored correctly, but taking input and printing using this
+method creates problems.
+
+--------------------------------------------------------------------
+Problem with Input Using Character Array
+--------------------------------------------------------------------
+If we take input like this:
+
+char arr[10];
+for(int i = 0; i < 10; i++) {
+    cin >> arr[i];
+}
+
+If the user enters fewer than 10 characters, the program still waits.
+If the user enters more than 10 characters, overflow occurs. Fixed-size
+arrays are therefore impractical for real-world text input.
+
+--------------------------------------------------------------------
+Null Character '\0' (Most Important Concept)
+--------------------------------------------------------------------
+The null character '\0' has ASCII value 0 and marks the end of a string.
+The programmer does not insert it manually; the system adds it
+automatically.
+
+Example input:
+APPLE
+
+Memory becomes:
+Index :  0   1   2   3   4   5
+Value :  A   P   P   L   E   \0
+
+The null character tells the system where the string ends.
+
+--------------------------------------------------------------------
+Why cout << arr Works
+--------------------------------------------------------------------
+When we write:
+cout << arr;
+
+The system starts printing from arr[0] and continues printing characters
+until it encounters '\0'.
+
+Example:
+char arr[] = {'R','O','\0','H','I'};
+cout << arr;
+
+Output:
+RO
+
+Printing stops as soon as '\0' is found. Everything after it is ignored.
+
+--------------------------------------------------------------------
+Why Null Character Is Needed
+--------------------------------------------------------------------
+Without '\0', we would need to store string length separately, which
+would require extra memory and extra logic. The null character allows
+automatic detection of the string end, making the process memory
+efficient and faster.
+
+--------------------------------------------------------------------
+Fixed Size Array Causes Memory Waste
+--------------------------------------------------------------------
+Example:
+char arr[1000];
+
+Input:
+MEN
+
+Only 3 bytes are needed, but 1000 bytes are reserved. The remaining
+memory is wasted. Memory should be allocated only as much as required.
+
+--------------------------------------------------------------------
+Solution: string (STL)
+--------------------------------------------------------------------
+The C++ string is a dynamic character container. It automatically
+manages memory, is stored in heap memory, and is internally similar to
+vector<char>.
+
+Basic usage:
+string s;
+cin >> s;
+cout << s;
+
+The cin statement stops reading input at space, tab, or enter.
+
+--------------------------------------------------------------------
+Problem with cin and String
+--------------------------------------------------------------------
+Input:
+Rohit Negi
+
+Using:
+cin >> s;
+
+Only "Rohit" is stored because cin treats space as a separator.
+
+--------------------------------------------------------------------
+Solution: getline()
+--------------------------------------------------------------------
+To read complete text including spaces:
+
+string s;
+getline(cin, s);
+cout << s;
+
+getline reads spaces, tabs, and stops only when ENTER is pressed.
+
+--------------------------------------------------------------------
+String Size
+--------------------------------------------------------------------
+string s = "Rohit";
+cout << s.size();
+
+Output:
+5
+
+The null character '\0' is not counted in size().
+
+--------------------------------------------------------------------
+String Concatenation
+--------------------------------------------------------------------
+Using + operator:
+string s1 = "Rohit";
+string s2 = "Mohit";
+string s3 = s1 + s2;
+cout << s3;
+
+Output:
+RohitMohit
+
+Using append():
+s1.append(s2);
+
+--------------------------------------------------------------------
+push_back() and pop_back()
+--------------------------------------------------------------------
+string s = "Rohit";
+s.push_back('P');   // RohitP
+s.pop_back();       // Rohi
+
+--------------------------------------------------------------------
+Escape Character '\'
+--------------------------------------------------------------------
+Problematic code:
+string s = "Rohit is a "good" boy";   // ERROR
+
+The compiler thinks the string ends early.
+
+Correct way:
+string s = "Rohit is a \"good\" boy";
+cout << s;
+
+Output:
+Rohit is a "good" boy
+
+The escape character tells the compiler to treat the next character as
+a normal character.
+
+--------------------------------------------------------------------
+Reverse a String
+--------------------------------------------------------------------
+Logic:
+Use two pointers, one at the start and one at the end. Swap characters
+and move inward.
+
+Code:
+string s = "Rohit";
+int start = 0;
+int end = s.size() - 1;
+
+while(start < end) {
+    swap(s[start], s[end]);
+    start++;
+    end--;
+}
+
+cout << s;
+
+Output:
+tihoR
+
+--------------------------------------------------------------------
+Find Length Without Using size()
+--------------------------------------------------------------------
+int len = 0;
+while(s[len] != '\0') {
+    len++;
+}
+cout << len;
+
+This works because every string internally ends with '\0'.
+
+--------------------------------------------------------------------
+Palindrome Check
+--------------------------------------------------------------------
+string s = "naman";
+int start = 0;
+int end = s.size() - 1;
+
+while(start < end) {
+    if(s[start] != s[end]) {
+        cout << "Not Palindrome";
+        return 0;
+    }
+    start++;
+    end--;
+}
+
+cout << "Palindrome";
+
+--------------------------------------------------------------------
+Final Summary
+--------------------------------------------------------------------
+Character arrays are fixed-size and require manual handling.
+C++ string is dynamic, safe, and efficient.
+The null character '\0' is the backbone of string handling.
+getline() is used for full-line input.
+Strings use heap memory and work on the same concept as vector.
+
+====================================================================
+End of Lecture Notes
+====================================================================
+*/
