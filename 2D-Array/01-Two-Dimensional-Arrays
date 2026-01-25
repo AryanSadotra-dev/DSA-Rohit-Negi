@@ -1,0 +1,345 @@
+/*
+====================================================================
+📘 Lecture Notes: Two-Dimensional Arrays (2D Arrays) in C / C++
+(Full Classroom Teaching Style – Exact Reconstruction in English)
+====================================================================
+
+These notes are a direct reconstruction of the spoken lecture,
+translated into clear English while preserving:
+- Teacher’s flow
+- Repetition
+- Motivation
+- Logical buildup
+- Examples
+- Memory-level reasoning
+
+⚠️ This is NOT a summary.
+⚠️ No lecture point is skipped.
+⚠️ Repetition is intentionally preserved.
+====================================================================
+*/
+
+/*------------------------------------------------------------
+1. Introduction and Motivation
+   (Why We Are Studying 2D Arrays)
+------------------------------------------------------------*/
+
+The teacher begins the lecture by greeting the students and setting a
+comfortable classroom atmosphere. He clearly states that today’s topic
+is very important and announces that the discussion will be about
+Two-Dimensional Arrays (2D Arrays).
+
+Instead of immediately giving a definition, the teacher first builds
+intuition using a real-life example. He asks the class:
+
+"All of you have used Excel sheets, right?"
+
+After students agree, he explains how data is arranged inside an Excel
+sheet. He mentions that an Excel sheet stores different kinds of data
+such as phone numbers, age, and bank account numbers.
+
+He explains that this data is organized in a tabular format:
+- Multiple rows (first row, second row, third row, etc.)
+- Multiple columns (first column, second column, third column, etc.)
+
+Then the teacher asks a key question that creates the need for a new
+concept:
+
+"If I want to store this Excel-like data inside my computer system,
+how will I store it in memory?"
+
+This question motivates the introduction of 2D arrays.
+
+/*------------------------------------------------------------
+2. Attempting the Problem Using 1D Arrays
+   (And Why It Fails)
+------------------------------------------------------------*/
+
+Some students suggest a solution: using multiple 1D arrays.
+
+For example:
+- One 1D array for phone numbers
+- One 1D array for age
+- One 1D array for account numbers
+
+The teacher acknowledges that this approach can work when the data size
+is very small.
+
+However, he deliberately increases the scale of the problem by asking:
+- What if there are 100 entries?
+- What if there are 1 lakh (100,000) entries?
+
+At this point, the limitation becomes obvious. Using 1D arrays would
+require creating and managing a very large number of arrays such as
+arr1, arr2, arr3, ..., arr100000.
+
+The teacher explains that this approach is:
+- Not practical
+- Not efficient
+- Not scalable
+
+This leads to the conclusion that a better structure is required.
+
+/*------------------------------------------------------------
+3. Introducing the 2D Array Concept
+------------------------------------------------------------*/
+
+The teacher now introduces the concept of a Two-Dimensional Array.
+
+A 2D array has two dimensions:
+- One dimension represents rows
+- One dimension represents columns
+
+Referring back to the Excel example, the teacher explains:
+- Number of rows = 4
+- Number of columns = 3
+
+Instead of multiple 1D arrays, a single 2D array of size 4×3 can store
+all the data neatly.
+
+Visually, a 2D array looks like a table with:
+- Horizontal rows
+- Vertical columns
+
+This makes data organization clean and logical.
+
+/*------------------------------------------------------------
+4. Indexing in a 2D Array
+------------------------------------------------------------*/
+
+The teacher explains indexing very carefully.
+
+In a 2D array:
+- Rows are indexed starting from 0
+- Columns are indexed starting from 0
+
+Each element is accessed using two indices:
+
+    array[row_index][column_index]
+
+Examples:
+- arr[0][0] → row 0, column 0
+- arr[0][1] → row 0, column 1
+- arr[1][2] → row 1, column 2
+- arr[3][2] → row 3, column 2
+
+The teacher emphasizes that every element has a unique identity defined
+by its row and column position.
+
+/*------------------------------------------------------------
+5. Real-Life Examples of 2D Arrays
+------------------------------------------------------------*/
+
+To strengthen understanding, the teacher gives real-life examples.
+
+Chessboard:
+- 8 rows
+- 8 columns
+
+Tic-Tac-Toe board:
+- 3 rows
+- 3 columns
+
+These examples show that 2D structures are common in real life and not
+limited to programming problems.
+
+/*------------------------------------------------------------
+6. Memory Allocation of a 2D Array
+------------------------------------------------------------*/
+
+The teacher now shifts focus to memory-level understanding.
+
+He explains that although a 2D array looks like a table, memory is
+always linear.
+
+Important rule:
+All array elements are stored in contiguous memory locations.
+
+In C and C++, 2D arrays are stored using Row-Major Order:
+- Entire first row is stored first
+- Then the second row
+- Then the third row, and so on
+
+A 4×3 array (12 elements) is stored like a 1D array of size 12 in memory.
+
+/*------------------------------------------------------------
+7. Mapping 2D Indices to 1D Memory
+------------------------------------------------------------*/
+
+The teacher introduces the mathematical formula used internally.
+
+Given:
+- Number of columns = C
+- Row index = i
+- Column index = j
+
+Linear index formula:
+
+    linear_index = (i * C) + j
+
+Explanation:
+- i * C gives the number of elements before the current row
+- + j gives the offset inside the row
+
+Example:
+For arr[2][1] in a 4×3 array:
+
+    index = (2 * 3) + 1 = 7
+
+This means the element is stored at index 7 in linear memory.
+
+/*------------------------------------------------------------
+8. Reverse Mapping (Index → Row & Column)
+------------------------------------------------------------*/
+
+Given:
+- Linear index = index
+- Number of columns = C
+
+Row index:
+    row = index / C
+
+Column index:
+    column = index % C
+
+The teacher explains that division tells how many full rows are completed,
+and modulus gives the position inside the row.
+
+/*------------------------------------------------------------
+9. Address Calculation in Memory
+------------------------------------------------------------*/
+
+For a 1D array:
+    address = base_address + (index * size_of_element)
+
+For a 2D array:
+    address = base_address + ((i * C + j) * size_of_element)
+
+Example:
+- Base address = 500
+- int size = 4 bytes
+- arr[2][1] → index = 7
+
+    address = 500 + (7 * 4) = 528
+
+This is exactly how the computer accesses elements.
+
+/*------------------------------------------------------------
+10. Declaration and Initialization
+------------------------------------------------------------*/
+
+Declaration:
+    int arr[4][3];
+
+Initialization:
+    int arr[4][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+        {10, 11, 12}
+    };
+
+The teacher explains that values are filled row-wise.
+
+/*------------------------------------------------------------
+11. Accessing and Updating Elements
+------------------------------------------------------------*/
+
+Updating a value:
+    arr[3][0] = 15;
+
+Taking input:
+    cin >> arr[i][j];
+
+/*------------------------------------------------------------
+12. Printing a 2D Array
+------------------------------------------------------------*/
+
+Nested loop logic:
+- Outer loop → rows
+- Inner loop → columns
+
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < columns; j++) {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+/*------------------------------------------------------------
+13. Searching an Element
+------------------------------------------------------------*/
+
+Logic:
+- Traverse the entire array
+- Compare each element with x
+- If found → print "Yes"
+- Else → print "No"
+
+The teacher emphasizes that no shortcut exists.
+
+/*------------------------------------------------------------
+14. Matrix Addition
+------------------------------------------------------------*/
+
+Condition:
+- Same number of rows
+- Same number of columns
+
+Logic:
+    result[i][j] = arr1[i][j] + arr2[i][j];
+
+Time Complexity:
+    O(rows * columns)
+
+/*------------------------------------------------------------
+15. Row with Maximum Sum
+------------------------------------------------------------*/
+
+Steps:
+- Calculate sum of each row
+- Track maximum sum
+- Print row index
+
+/*------------------------------------------------------------
+16. Diagonal Sum (Square Matrix Only)
+------------------------------------------------------------*/
+
+Condition:
+    rows == columns
+
+Primary diagonal:
+    arr[i][i]
+
+Secondary diagonal:
+    arr[i][n - 1 - i]
+
+Time Complexity:
+    O(n)
+
+/*------------------------------------------------------------
+17. Reverse Each Row
+------------------------------------------------------------*/
+
+For each row:
+- Use two pointers
+- Swap elements
+- Move inward
+
+Same logic as reversing a 1D array.
+
+/*------------------------------------------------------------
+18. Final Conclusion
+------------------------------------------------------------*/
+
+The teacher concludes:
+- 2D arrays are powerful
+- They are stored linearly in memory
+- Index formulas are critical
+- Practice is essential
+
+He hints that higher-level structures like vectors will be discussed next.
+
+====================================================================
+END OF LECTURE NOTES
+====================================================================
