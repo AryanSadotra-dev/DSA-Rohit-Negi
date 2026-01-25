@@ -303,11 +303,6 @@ So:
 • Variable address → FIXED
 • Pointer value → CHANGEABLE
 
-====================================================================
-📘 ADDITIONAL NOTES (MISSED BUT CRITICAL PARTS)
-Pointers + Arrays (Deep Internals & Proofs)
-====================================================================
-
 --------------------------------------------------------------------
 24. Dereferencing Operator (*) – REAL Meaning (Teacher Style)
 --------------------------------------------------------------------
