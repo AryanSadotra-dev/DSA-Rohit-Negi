@@ -7,16 +7,6 @@ if–else, Comparison Logic & Deep Introduction to Loops
 (Teacher’s Full Classroom Teaching Style – FULL DETAIL Reconstruction)
 ====================================================================
 
-⚠️ These notes are a DIRECT reconstruction of the lecture.
-⚠️ Hinglish language is intentional (teacher style).
-⚠️ NOTHING is skipped.
-⚠️ Confusing / broken speech parts are COMPLETED logically.
-⚠️ Written as ONE long GitHub-ready file for deep revision.
-⚠️ Line-by-line thinking + visualization included.
-
-====================================================================
-
-
 ------------------------------------------------------------
 1. Opening Energy – Teacher Sets the Tone
 ------------------------------------------------------------
@@ -42,8 +32,6 @@ Message:
 ------------------------------------------------------------
 2. Where We Are Stuck – Static Code Problem
 ------------------------------------------------------------
-
-Teacher recap karta hai:
 
 Abhi tak hum kya kar rahe the?
 
@@ -79,7 +67,6 @@ Same cheez programming me:
 • cin = search box  
 
 User ko alag jagah input deni chahiye.
-
 
 ------------------------------------------------------------
 4. cin – User Input Mechanism
