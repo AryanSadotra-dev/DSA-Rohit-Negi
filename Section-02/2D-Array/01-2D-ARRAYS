@@ -1,0 +1,364 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES
+TOPIC: 2D ARRAYS (Two Dimensional Arrays)
+(Complete Classroom Reconstruction – English – GitHub Ready – Single File)
+===============================================================================
+
+⚠️ These notes are NOT summarized.
+⚠️ These notes reconstruct the teacher’s complete explanation.
+⚠️ Concepts are explained from ZERO → DSA LEVEL.
+⚠️ Hinglish tone converted to clear English teaching style.
+
+===============================================================================
+0️⃣ LECTURE INTRODUCTION
+===============================================================================
+
+Hello Code Army, how are you all?
+
+I hope everyone is doing well.
+
+Today we are going to discuss a VERY IMPORTANT topic:
+👉 TWO DIMENSIONAL ARRAYS (2D ARRAYS)
+
+We will understand:
+✔ What is a 2D array
+✔ Why we needed it
+✔ Which problem it solves
+✔ How it is stored in memory
+✔ How indexing works
+✔ How computers access elements
+✔ Real-life use cases
+✔ Practical coding problems
+
+So let’s begin.
+
+===============================================================================
+1️⃣ REAL LIFE PROBLEM – EXCEL SHEET
+===============================================================================
+
+All of you have used an Excel sheet.
+
+In an Excel sheet:
+- There are rows
+- There are columns
+- Each cell stores some data
+
+Example:
+- Column 1 → Phone Number
+- Column 2 → Age
+- Column 3 → Bank Account Number
+
+The data looks like this:
+
+Row 0:  Phone   Age   Account
+Row 1:  9823   24    7395
+Row 2:  9811   20    3272
+Row 3:  9917   32    7392
+
+This is TABULAR DATA.
+
+Now the question is:
+👉 How do we store this type of data inside a computer program?
+
+===============================================================================
+2️⃣ WHY 1D ARRAY IS NOT ENOUGH
+===============================================================================
+
+You may think:
+"Let me create one 1D array for each row."
+
+That means:
+- arr1[3]
+- arr2[3]
+- arr3[3]
+- arr4[3]
+
+This works for 4 rows.
+
+But now imagine:
+❌ 100 rows
+❌ 1,000 rows
+❌ 1,00,000 rows
+
+Will you create:
+arr1, arr2, arr3, ..., arr100000 ?
+
+❌ Impossible
+❌ Too much code
+❌ Not scalable
+❌ Not practical
+
+So we need a BETTER solution.
+
+===============================================================================
+3️⃣ SOLUTION – TWO DIMENSIONAL ARRAY
+===============================================================================
+
+A 2D array allows us to store:
+- Rows
+- Columns
+- Tabular data
+
+Definition:
+A 2D array is an array of arrays.
+
+One dimension → rows  
+Second dimension → columns  
+
+Example:
+4 rows × 3 columns
+
+===============================================================================
+4️⃣ VISUAL REPRESENTATION OF 2D ARRAY
+===============================================================================
+
+Indexing:
+
+Rows:    0   1   2   3
+Columns: 0   1   2
+
+Element naming:
+arr[0][0], arr[0][1], arr[0][2]
+arr[1][0], arr[1][1], arr[1][2]
+arr[2][0], arr[2][1], arr[2][2]
+arr[3][0], arr[3][1], arr[3][2]
+
+Each element is identified by:
+[row_index][column_index]
+
+===============================================================================
+5️⃣ REAL LIFE EXAMPLES OF 2D ARRAYS
+===============================================================================
+
+✔ Excel Sheet
+✔ Chess Board (8 × 8)
+✔ Tic Tac Toe (3 × 3)
+✔ Matrix operations
+✔ Image pixels
+✔ Game boards
+
+===============================================================================
+6️⃣ MEMORY ALLOCATION OF 2D ARRAYS
+===============================================================================
+
+Important concept:
+❗ Even though 2D array looks like a grid,
+❗ In memory it is stored LINEARLY.
+
+Arrays are stored in:
+👉 CONTIGUOUS MEMORY LOCATIONS
+
+There are two storage methods:
+1️⃣ Row Major Order (used in C/C++)
+2️⃣ Column Major Order (used in Fortran)
+
+We focus on:
+👉 ROW MAJOR ORDER
+
+===============================================================================
+7️⃣ ROW MAJOR ORDER (VERY IMPORTANT)
+===============================================================================
+
+Row major means:
+- First complete row 0 is stored
+- Then row 1
+- Then row 2
+- And so on
+
+Example (4 × 3):
+
+Row 0 → [0][0] [0][1] [0][2]
+Row 1 → [1][0] [1][1] [1][2]
+Row 2 → [2][0] [2][1] [2][2]
+Row 3 → [3][0] [3][1] [3][2]
+
+Memory layout (as 1D array):
+
+Index:  0  1  2  3  4  5  6  7  8  9  10 11
+Data : 00 01 02 10 11 12 20 21 22 30 31 32
+
+So internally:
+👉 2D array behaves like a 1D array
+
+===============================================================================
+8️⃣ FORMULA: 2D → 1D INDEX CONVERSION
+===============================================================================
+
+If:
+- Columns = C
+- Element = arr[i][j]
+
+Then its linear index is:
+
+index = (i × C) + j
+
+Example:
+arr[2][1], C = 3
+
+index = (2 × 3) + 1 = 7
+
+===============================================================================
+9️⃣ FORMULA: 1D → 2D INDEX CONVERSION
+===============================================================================
+
+Given:
+- index
+- columns = C
+
+Row index:
+i = index / C
+
+Column index:
+j = index % C
+
+This works because of:
+👉 zero-based indexing
+
+===============================================================================
+🔟 ADDRESS CALCULATION (HOW CPU ACCESSES DATA)
+===============================================================================
+
+CPU does NOT understand rows and columns.
+CPU only understands ADDRESSES.
+
+Formula:
+
+Address = BaseAddress + (index × size_of_element)
+
+For 2D array:
+
+Address = Base + ((i × C + j) × size_of_element)
+
+This is why:
+👉 number of columns MUST be known at compile time
+
+===============================================================================
+1️⃣1️⃣ DECLARATION OF 2D ARRAY IN C++
+===============================================================================
+
+int arr[4][3];
+
+Means:
+- 4 rows
+- 3 columns
+- Total elements = 12
+
+===============================================================================
+1️⃣2️⃣ INITIALIZATION
+===============================================================================
+
+int arr[4][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9},
+    {10, 11, 12}
+};
+
+===============================================================================
+1️⃣3️⃣ ACCESSING & UPDATING ELEMENTS
+===============================================================================
+
+arr[3][0] = 15;   // Update
+cin >> arr[1][2]; // User input
+
+===============================================================================
+1️⃣4️⃣ TRAVERSING A 2D ARRAY (ROW-WISE)
+===============================================================================
+
+for(int i = 0; i < rows; i++)
+{
+    for(int j = 0; j < cols; j++)
+    {
+        cout << arr[i][j] << " ";
+    }
+    cout << endl;
+}
+
+===============================================================================
+1️⃣5️⃣ SEARCH AN ELEMENT IN 2D ARRAY
+===============================================================================
+
+bool found = false;
+
+for(int i = 0; i < rows; i++)
+{
+    for(int j = 0; j < cols; j++)
+    {
+        if(arr[i][j] == x)
+        {
+            found = true;
+            break;
+        }
+    }
+}
+
+Time Complexity: O(rows × cols)
+Space Complexity: O(1)
+
+===============================================================================
+1️⃣6️⃣ ADDITION OF TWO MATRICES
+===============================================================================
+
+Condition:
+Rows and columns must be SAME.
+
+answer[i][j] = a[i][j] + b[i][j]
+
+Time Complexity: O(rows × cols)
+Space Complexity: O(rows × cols)
+
+===============================================================================
+1️⃣7️⃣ ROW WITH MAXIMUM SUM
+===============================================================================
+
+Approach:
+- Calculate sum of each row
+- Track maximum sum
+- Store row index
+
+Time Complexity: O(rows × cols)
+Space Complexity: O(1)
+
+===============================================================================
+1️⃣8️⃣ DIAGONAL SUM (SQUARE MATRIX ONLY)
+===============================================================================
+
+Primary diagonal:
+arr[i][i]
+
+Secondary diagonal:
+arr[i][n - i - 1]
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+===============================================================================
+1️⃣9️⃣ REVERSE EACH ROW OF MATRIX
+===============================================================================
+
+For each row:
+- Use two pointers
+- Swap start and end
+
+Time Complexity: O(rows × cols)
+Space Complexity: O(1)
+
+===============================================================================
+🎯 FINAL TAKEAWAYS
+===============================================================================
+
+✔ 2D arrays store tabular data
+✔ Internally stored as linear memory
+✔ Row-major order in C++
+✔ Address calculation is critical
+✔ Foundation of matrices, DP, graphs, games
+
+Next lecture:
+👉 2D Arrays with VECTORS (Dynamic size)
+
+JAI HIND 🇮🇳
+===============================================================================
+END OF FILE
+===============================================================================
+*/
