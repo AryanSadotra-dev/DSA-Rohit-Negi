@@ -1,0 +1,465 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES – DAY 26
+BINARY SEARCH – QUESTION PRACTICE SESSION
+QUESTION 1: FIRST AND LAST POSITION OF ELEMENT IN SORTED ARRAY
+(Complete Classroom Reconstruction – 100% – English – GitHub Ready)
+===============================================================================
+
+⚠️ These notes are NOT summarized.
+⚠️ These notes reconstruct the teacher’s COMPLETE spoken thinking.
+⚠️ Repetition, pauses, self-questions, and confirmations are INTENTIONAL.
+⚠️ This is HOW to think, not just WHAT to code.
+⚠️ Nothing is skipped.
+
+===============================================================================
+0️⃣ LECTURE INTRODUCTION
+===============================================================================
+
+Hello Coder Army, how are you all?
+
+I hope all of you are doing great in your life.
+
+So today, we are going to SOLVE QUESTIONS.
+
+Yesterday:
+👉 We studied the CONCEPT of Binary Search.
+
+Today:
+👉 We will solve questions RELATED to Binary Search.
+
+We will solve FOUR questions today,
+but we will start slowly, calmly, and properly.
+
+So without any delay,
+👉 let’s begin today’s session.
+
+===============================================================================
+1️⃣ QUESTION STATEMENT (READING & UNDERSTANDING)
+===============================================================================
+
+Let me read the question carefully.
+
+The question says:
+👉 “First and Last Position of Element in Sorted Array”
+
+You are given an array.
+That array is SORTED.
+
+Example array:
+[5, 7, 7, 8, 8, 10]
+
+Now some students get confused here, so let’s clear this first.
+
+Is this array strictly increasing?
+
+No.
+
+Why?
+Because:
+- 7 appears twice
+- 8 appears twice
+
+But still the array is SORTED.
+
+This type of order is called:
+👉 NON-DECREASING ORDER
+
+Means:
+- Either the value increases
+- Or it stays the same
+- But it NEVER decreases
+
+This is very important.
+
+Now you are also given a TARGET value.
+
+Example:
+target = 8
+
+What do you have to find?
+
+You have to find:
+1️⃣ The FIRST occurrence of 8
+2️⃣ The LAST occurrence of 8
+
+And you have to return their INDICES.
+
+Indexing is 0-based.
+
+So let’s see manually.
+
+Array:
+Index:  0  1  2  3  4   5
+Value: [5, 7, 7, 8, 8, 10]
+
+First time 8 appears → index 3  
+Last time 8 appears  → index 4  
+
+So output should be:
+[3, 4]
+
+Is the question clear?
+Yes.
+
+===============================================================================
+2️⃣ EXTRA CASES (VERY IMPORTANT)
+===============================================================================
+
+Case 1: Only ONE occurrence
+
+Example:
+[1, 2, 3, 4]
+target = 3
+
+First occurrence = 2  
+Last occurrence  = 2  
+
+Output:
+[2, 2]
+
+--------------------------------------------
+
+Case 2: Target does NOT exist
+
+Example:
+[1, 2, 3, 4]
+target = 9
+
+We searched everywhere.
+We did not find it.
+
+So output:
+[-1, -1]
+
+This means:
+👉 Element does not exist in the array.
+
+===============================================================================
+3️⃣ FIRST THOUGHT – BRUTE FORCE (LINEAR SEARCH)
+===============================================================================
+
+Now think like a beginner.
+
+How would you solve this first?
+
+Very simple.
+
+Step 1:
+Start from LEFT.
+Keep checking elements.
+The moment you see target → store index as FIRST.
+
+Step 2:
+Start from RIGHT.
+Keep checking elements.
+The moment you see target → store index as LAST.
+
+Done.
+
+Very simple logic.
+
+But now let’s talk about TIME COMPLEXITY.
+
+First scan → O(n)  
+Second scan → O(n)
+
+Total:
+O(n + n) = O(2n)
+
+And we know:
+👉 O(2n) is simply O(n)
+
+This solution works.
+But is it OPTIMAL?
+
+No.
+
+===============================================================================
+4️⃣ IMPORTANT OBSERVATION (KEY TURNING POINT)
+===============================================================================
+
+Now pause here.
+
+Look at the question again.
+
+What do we notice?
+
+👉 The array is SORTED.
+
+Whenever:
+- Array is sorted
+- And we are asked to SEARCH something
+
+Binary Search should immediately come to your mind.
+
+This is the PATTERN.
+
+So now the question becomes:
+👉 Can we do this in O(log n)?
+
+Yes, we can.
+
+===============================================================================
+5️⃣ CORE IDEA – SPLIT THE PROBLEM
+===============================================================================
+
+But wait.
+
+We are not searching for just ONE thing.
+
+We are searching for TWO things:
+1️⃣ First occurrence
+2️⃣ Last occurrence
+
+So what do we do?
+
+We split the problem.
+
+Part 1:
+👉 Use Binary Search to find FIRST occurrence
+
+Part 2:
+👉 Use Binary Search to find LAST occurrence
+
+Same binary search.
+Only a SMALL change in behavior.
+
+===============================================================================
+6️⃣ FINDING FIRST OCCURRENCE – THINKING PROCESS
+===============================================================================
+
+Let’s focus ONLY on first occurrence.
+
+Binary Search basics:
+- start = 0
+- end = n - 1
+- mid = start + (end - start) / 2
+
+Now think carefully.
+
+Normal Binary Search:
+👉 Stops immediately when target is found.
+
+But here:
+👉 We CANNOT stop.
+
+Why?
+
+Because:
+Even if we found the target at mid,
+there might be another same target on the LEFT side.
+
+So when we find target:
+- We store the index
+- But we CONTINUE searching LEFT
+
+This is the MOST IMPORTANT idea.
+
+So rules become:
+
+If nums[mid] == target:
+- Store mid as possible answer
+- Move LEFT → end = mid - 1
+
+If nums[mid] < target:
+- Move RIGHT → start = mid + 1
+
+If nums[mid] > target:
+- Move LEFT → end = mid - 1
+
+We keep doing this
+until start > end.
+
+===============================================================================
+7️⃣ WHY WE INITIALIZE FIRST = -1
+===============================================================================
+
+Before starting binary search,
+we do:
+
+first = -1
+
+Why?
+
+Because:
+If target never appears,
+this value should not change.
+
+So at the end:
+- If first is still -1
+- We know target does not exist
+
+Clean logic.
+
+===============================================================================
+8️⃣ FINDING LAST OCCURRENCE – THINKING PROCESS
+===============================================================================
+
+Now we do the SAME binary search again.
+
+But now our intention is different.
+
+We want the LAST occurrence.
+
+So what changes?
+
+Only ONE thing.
+
+When nums[mid] == target:
+- Store mid as possible answer
+- Move RIGHT → start = mid + 1
+
+Why right?
+Because last occurrence can exist on the right side.
+
+Other conditions remain SAME.
+
+This is the beauty of this problem.
+
+Same code.
+Tiny behavior change.
+
+===============================================================================
+9️⃣ COMPLETE DRY RUN (IMPORTANT)
+===============================================================================
+
+Array:
+[5, 7, 7, 8, 8, 10]
+target = 8
+
+First occurrence search:
+
+start = 0, end = 5  
+mid = 2 → nums[2] = 7 < 8 → move right  
+
+start = 3, end = 5  
+mid = 4 → nums[4] = 8 == target  
+store first = 4  
+move left → end = 3  
+
+start = 3, end = 3  
+mid = 3 → nums[3] = 8 == target  
+store first = 3  
+move left → end = 2  
+
+Loop ends.
+
+First occurrence = 3
+
+--------------------------------------------
+
+Last occurrence search:
+
+start = 0, end = 5  
+mid = 2 → nums[2] = 7 < 8 → move right  
+
+start = 3, end = 5  
+mid = 4 → nums[4] = 8 == target  
+store last = 4  
+move right → start = 5  
+
+start = 5, end = 5  
+mid = 5 → nums[5] = 10 > 8 → move left  
+
+Loop ends.
+
+Last occurrence = 4
+
+Correct.
+
+===============================================================================
+🔟 COMPLETE C++ IMPLEMENTATION
+===============================================================================
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n = nums.size();
+        int first = -1, last = -1;
+
+        // -------- FIRST OCCURRENCE --------
+        int start = 0, end = n - 1;
+        while(start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if(nums[mid] == target) {
+                first = mid;
+                end = mid - 1;   // move left
+            }
+            else if(nums[mid] < target) {
+                start = mid + 1;
+            }
+            else {
+                end = mid - 1;
+            }
+        }
+
+        // -------- LAST OCCURRENCE --------
+        start = 0;
+        end = n - 1;
+        while(start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if(nums[mid] == target) {
+                last = mid;
+                start = mid + 1; // move right
+            }
+            else if(nums[mid] < target) {
+                start = mid + 1;
+            }
+            else {
+                end = mid - 1;
+            }
+        }
+
+        return {first, last};
+    }
+};
+
+===============================================================================
+1️⃣1️⃣ TIME & SPACE COMPLEXITY
+===============================================================================
+
+Each binary search:
+O(log n)
+
+We run it twice:
+O(log n) + O(log n) = O(log n)
+
+Space Complexity:
+O(1)
+
+===============================================================================
+1️⃣2️⃣ FUTURE CONNECTION
+===============================================================================
+
+This logic is used to:
+- Count occurrences of an element
+- Lower bound / Upper bound
+- Range queries
+- Many advanced binary search problems
+
+This is NOT a single question.
+This is a PATTERN.
+
+===============================================================================
+🎯 FINAL TAKEAWAY
+===============================================================================
+
+- Never stop binary search immediately
+- Store answer and shrink search space
+- Direction after match decides FIRST or LAST
+- Sorted array = binary search opportunity
+
+If this makes sense,
+then Binary Search truly makes sense.
+
+JAI HIND 🇮🇳
+===============================================================================
+END OF FILE
+===============================================================================
+*/
