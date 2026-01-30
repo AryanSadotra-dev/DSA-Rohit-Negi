@@ -1,0 +1,367 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES – DAY XX
+BINARY SEARCH
+(Complete Classroom Teaching – Full Reconstruction)
+(Language: Teacher-style English with Hinglish Flow)
+===============================================================================
+
+⚠️ These notes are a DIRECT reconstruction of the lecture.
+⚠️ Real-life analogies, repetition, doubts, mistakes & fixes are INTENTIONAL.
+⚠️ Interview-oriented thinking is preserved.
+⚠️ Nothing is skipped.
+
+===============================================================================
+0️⃣ INTRODUCTION – WHY THIS TOPIC MATTERS
+===============================================================================
+
+Hello Coder Army, kaise hain aap sab log?
+
+I think aap sab apni life mein macha rahe honge 🔥
+
+Today, we are going to study a VERY IMPORTANT topic:
+👉 BINARY SEARCH
+
+This question was asked to me directly in interview rounds.
+Big companies ask this topic again and again.
+
+Problem is NOT that binary search is hard.
+Problem is:
+❌ Students fail to IDENTIFY that a problem is a Binary Search problem.
+
+After this Binary Search series:
+👉 You will INSTANTLY catch that this is a Binary Search problem.
+
+===============================================================================
+1️⃣ WHAT SEARCHING TECHNIQUE WE KNOW ALREADY
+===============================================================================
+
+Till now, we have studied:
+👉 LINEAR SEARCH
+
+Example:
+Array = [1, 3, 5, 7, 9]
+
+If I want to find 1:
+- Check index 0
+- Then index 1
+- Then index 2
+- Continue…
+
+Time Complexity:
+👉 O(n)
+
+This is BRUTE FORCE.
+
+===============================================================================
+2️⃣ WHEN BINARY SEARCH CAN BE APPLIED (VERY IMPORTANT)
+===============================================================================
+
+Binary Search can ONLY be applied when:
+✅ Data is SORTED
+
+Sorted can be:
+- Increasing order
+- Decreasing order
+
+That is why before search:
+👉 We studied Sorting (Bubble, Selection, Insertion)
+
+If data is NOT sorted:
+❌ Binary Search CANNOT be applied.
+
+===============================================================================
+3️⃣ REAL LIFE ANALOGY – DICTIONARY 📖
+===============================================================================
+
+Think of a dictionary.
+
+You want to find meaning of word:
+👉 “Development”
+
+What do you do?
+- Open dictionary from the MIDDLE
+- Suppose page shows word starting with ‘P’
+
+Now you know:
+👉 “Development” comes BEFORE ‘P’
+
+So you IGNORE right half.
+Then again:
+- Open left half from middle
+- Check first letter
+- Decide direction
+
+You NEVER search word by word.
+
+That is:
+👉 BINARY SEARCH
+
+===============================================================================
+4️⃣ CORE IDEA OF BINARY SEARCH
+===============================================================================
+
+Binary Search works by:
+- Dividing search space into HALF
+- Ignoring one half every step
+
+This makes it VERY FAST.
+
+===============================================================================
+5️⃣ SIMPLE ARRAY EXAMPLE
+===============================================================================
+
+Sorted Array:
+[3, 6, 10, 11]
+
+Find: 10
+
+Step 1:
+Middle element = 6
+10 > 6 → Search RIGHT
+
+Step 2:
+Array left = [10, 11]
+Middle = 10
+
+FOUND.
+
+===============================================================================
+6️⃣ HOW TO FIND MIDDLE ELEMENT (INDEX LOGIC)
+===============================================================================
+
+Indexes:
+0 1 2 3 4
+
+Middle index:
+(mid) = (start + end) / 2
+
+Example:
+start = 0
+end = 4
+
+mid = (0 + 4) / 2 = 2
+
+===============================================================================
+7️⃣ DETAILED EXAMPLE (IMPORTANT)
+===============================================================================
+
+Array:
+[3, 7, 11, 12, 17, 18, 23, 27, 29]
+
+Find: 27
+
+start = 0, end = 8
+mid = (0 + 8)/2 = 4 → arr[4] = 17
+
+27 > 17 → RIGHT side
+
+start = 5, end = 8
+mid = (5 + 8)/2 = 6 → arr[6] = 23
+
+27 > 23 → RIGHT side
+
+start = 7, end = 8
+mid = (7 + 8)/2 = 7 → arr[7] = 27
+
+FOUND.
+
+===============================================================================
+8️⃣ WHY IT IS FAST
+===============================================================================
+
+Linear Search:
+Up to n steps.
+
+Binary Search:
+Every step removes HALF array.
+
+Example:
+100 → 50 → 25 → 12 → 6 → 3 → 1
+
+Huge difference.
+
+===============================================================================
+9️⃣ BASIC CONDITIONS IN BINARY SEARCH
+===============================================================================
+
+At every step:
+
+1️⃣ If arr[mid] == key
+   → FOUND
+
+2️⃣ If arr[mid] < key
+   → Search RIGHT
+   → start = mid + 1
+
+3️⃣ Else
+   → Search LEFT
+   → end = mid - 1
+
+===============================================================================
+🔟 LOOP TERMINATION CONDITION
+===============================================================================
+
+When element is NOT present.
+
+We stop when:
+👉 start > end
+
+Loop condition:
+while(start <= end)
+
+===============================================================================
+1️⃣1️⃣ BASIC BINARY SEARCH CODE (C++)
+===============================================================================
+
+int binarySearch(int arr[], int n, int key)
+{
+    int start = 0;
+    int end = n - 1;
+
+    while(start <= end)
+    {
+        int mid = (start + end) / 2;
+
+        if(arr[mid] == key)
+            return mid;
+        else if(arr[mid] < key)
+            start = mid + 1;
+        else
+            end = mid - 1;
+    }
+    return -1;
+}
+
+===============================================================================
+1️⃣2️⃣ INTEGER OVERFLOW PROBLEM (VERY IMPORTANT)
+===============================================================================
+
+Problem:
+mid = (start + end) / 2
+
+If start and end are very large:
+→ INTEGER OVERFLOW
+
+Example:
+INT max = 2³¹ - 1
+
+start + end may exceed limit.
+
+===============================================================================
+1️⃣3️⃣ SAFE WAY TO CALCULATE MID
+===============================================================================
+
+Correct formula:
+mid = start + (end - start) / 2;
+
+Why safe?
+- (end - start) is small
+- No overflow possible
+
+ALWAYS use this in interviews.
+
+===============================================================================
+1️⃣4️⃣ COMPLETE SAFE BINARY SEARCH CODE
+===============================================================================
+
+int binarySearch(int arr[], int n, int key)
+{
+    int start = 0;
+    int end = n - 1;
+
+    while(start <= end)
+    {
+        int mid = start + (end - start) / 2;
+
+        if(arr[mid] == key)
+            return mid;
+        else if(arr[mid] < key)
+            start = mid + 1;
+        else
+            end = mid - 1;
+    }
+    return -1;
+}
+
+===============================================================================
+1️⃣5️⃣ TIME COMPLEXITY ANALYSIS
+===============================================================================
+
+Worst Case:
+Array size keeps halving until 1.
+
+n = 2ᵏ
+k = log₂ n
+
+👉 Time Complexity = O(log n)
+
+Best Case:
+Element found at first mid.
+
+👉 O(1)
+
+Average Case:
+👉 O(log n)
+
+===============================================================================
+1️⃣6️⃣ SPACE COMPLEXITY
+===============================================================================
+
+Only variables used.
+
+Auxiliary Space:
+👉 O(1)
+
+===============================================================================
+1️⃣7️⃣ WHEN ELEMENT IS NOT PRESENT
+===============================================================================
+
+Example:
+[2, 4, 6, 10, 12]
+Find: 11
+
+Eventually:
+start > end
+
+Loop stops.
+Return -1.
+
+===============================================================================
+1️⃣8️⃣ INTERVIEW TIP – IDENTIFY BINARY SEARCH
+===============================================================================
+
+Binary Search hints:
+- Sorted array
+- Find minimum / maximum
+- First / last occurrence
+- Answer lies in range
+- “Minimize” or “maximize” problems
+
+===============================================================================
+1️⃣9️⃣ HOMEWORK
+===============================================================================
+
+1️⃣ Binary Search on DECREASING array  
+2️⃣ Find first & last occurrence  
+3️⃣ Binary Search on answer (future topic)
+
+===============================================================================
+🎯 FINAL TAKEAWAY
+===============================================================================
+
+Binary Search:
+- Is NOT just a search
+- Is a THINKING PATTERN
+- Foundation of many advanced problems
+
+If this is clear:
+👉 You are interview ready for search problems.
+
+JAI HIND 🇮🇳  
+JAI BHARAT 🇮🇳
+
+===============================================================================
+END OF FILE
+===============================================================================
+*/
