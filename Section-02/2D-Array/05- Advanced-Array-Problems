@@ -1,0 +1,388 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES
+TOPIC: ADVANCED ARRAY PROBLEMS & THE POWER OF MODULO
+(LAST LECTURE ON ARRAYS – FULL CLASSROOM RECONSTRUCTION)
+===============================================================================
+
+⚠️ These notes are a DIRECT reconstruction of the lecture.
+⚠️ Nothing is skipped.
+⚠️ Repetition is intentional (teacher style).
+⚠️ Focus is on THINKING, not memorization.
+⚠️ Language: English
+⚠️ Code language: C++
+
+===============================================================================
+0️⃣ LECTURE OPENING
+===============================================================================
+
+Hello Good Army, how are you all?
+I hope you are doing well.
+
+This is our LAST lecture on ARRAYS.
+After this, we will move to:
+- Strings
+- Pointers
+- Recursion
+
+Today’s lecture is VERY IMPORTANT because:
+👉 You will understand the TRUE POWER of the MODULO operator
+👉 You will learn how to STORE MULTIPLE VALUES in ONE POSITION
+👉 You will solve CLASSIC INTERVIEW PROBLEMS optimally
+
+So let’s start without wasting time.
+
+===============================================================================
+1️⃣ PROBLEM 1: HOW TO STORE TWO NUMBERS IN ONE POSITION
+===============================================================================
+
+You are given:
+- One integer variable (int type)
+- You must store TWO values inside it
+
+Input conditions:
+- A number X is given (1 ≤ X ≤ 99)
+- The same number X repeats multiple times
+- You must store:
+  1️⃣ The number itself
+  2️⃣ How many times it occurred
+
+Example:
+Input: 2 2 2 2 2 2
+Number = 2
+Occurrences = 6
+
+Question:
+👉 How do we store BOTH 2 and 6 inside ONE integer?
+
+-------------------------------------------------------------------------------
+❌ WRONG IDEA
+-------------------------------------------------------------------------------
+
+Storing directly like:
+26  (2 = number, 6 = count)
+
+Fails because:
+If number = 12 and count = 4
+You would store 124 → ambiguous
+
+So this approach FAILS.
+
+===============================================================================
+2️⃣ KEY OBSERVATION (MOST IMPORTANT)
+===============================================================================
+
+The problem gives a GUARANTEE:
+👉 The number will always be between 1 and 99
+
+That means:
+- Any number < 100
+
+So we choose a BASE = 100
+
+Why?
+Because modulo 100 will always return the original number.
+
+===============================================================================
+3️⃣ ENCODING LOGIC
+===============================================================================
+
+We store the value as:
+
+storedValue = number + (count * 100)
+
+Example:
+number = 2
+count = 6
+
+storedValue = 2 + (6 * 100) = 602
+
+Now ONE integer stores TWO values.
+
+===============================================================================
+4️⃣ DECODING LOGIC
+===============================================================================
+
+If storedValue = 602
+
+Original number:
+storedValue % 100 = 2
+
+Occurrences:
+storedValue / 100 = 6
+
+✅ Both values recovered perfectly.
+
+===============================================================================
+5️⃣ WHY DOES THIS WORK?
+===============================================================================
+
+Because:
+- number < 100 → modulo 100 preserves it
+- count * 100 is divisible by 100 → modulo removes it
+- division separates the count
+
+This is the SAME logic used in:
+- 2D array index mapping
+- Binary search on matrices
+- Row/column calculations
+
+Formula reminder:
+index = row * columns + column
+
+row = index / columns
+column = index % columns
+
+Same idea. Same power.
+
+===============================================================================
+6️⃣ REAL LIFE USE CASE
+===============================================================================
+
+Databases & compression:
+- Two values stored in one memory slot
+- Saves HUGE memory
+- Used in encoding, compression, hashing
+
+⚠️ WARNING:
+Always check for INTEGER OVERFLOW.
+
+===============================================================================
+7️⃣ PROBLEM 2: FIND MISSING AND REPEATING NUMBER
+===============================================================================
+
+Given:
+- Array size = n
+- Numbers should be from 1 to n
+- One number is missing
+- One number is repeated
+
+Example:
+Array: [1, 2, 2, 4, 6, 7, 3]
+Missing = 5
+Repeating = 2
+
+-------------------------------------------------------------------------------
+BRUTE FORCE
+-------------------------------------------------------------------------------
+
+For every number from 1 to n:
+- Count occurrences
+
+Time: O(n²)
+Space: O(1)
+
+Too slow.
+
+-------------------------------------------------------------------------------
+SORTING APPROACH
+-------------------------------------------------------------------------------
+
+Sort array → O(n log n)
+Traverse once to detect:
+- Duplicate
+- Missing
+
+Better, but still not optimal.
+
+===============================================================================
+8️⃣ COUNT ARRAY METHOD (O(n) TIME, O(n) SPACE)
+===============================================================================
+
+Idea:
+- Since values are from 1 to n
+- Create count array of size n
+
+Steps:
+1. Initialize count array with 0
+2. Traverse original array
+3. Increment count[value - 1]
+4. Traverse count array:
+   - count[i] == 0 → missing = i + 1
+   - count[i] == 2 → repeating = i + 1
+
+Works perfectly but uses extra space.
+
+===============================================================================
+9️⃣ OPTIMIZED METHOD (NO EXTRA SPACE) ⭐⭐⭐
+===============================================================================
+
+This is the CORE of the lecture.
+
+Idea:
+- Use the SAME array to store:
+  1️⃣ Original value
+  2️⃣ Frequency
+
+Steps:
+1. Decrease all values by 1
+   → Range becomes [0 to n-1]
+
+2. For each element:
+   index = arr[i] % n
+   arr[index] += n
+
+Why modulo?
+Because arr[index] might already contain encoded data.
+
+-------------------------------------------------------------------------------
+ENCODING FREQUENCY
+-------------------------------------------------------------------------------
+
+Every time a number appears:
+We ADD n to its corresponding index.
+
+After full traversal:
+- arr[i] / n → frequency
+- arr[i] % n → original value
+
+-------------------------------------------------------------------------------
+DETECTION
+-------------------------------------------------------------------------------
+
+If arr[i] / n == 0 → missing = i + 1  
+If arr[i] / n == 2 → repeating = i + 1  
+
+-------------------------------------------------------------------------------
+CODE
+-------------------------------------------------------------------------------
+
+vector<int> findMissingAndRepeating(vector<int>& arr)
+{
+    int n = arr.size();
+    vector<int> ans(2);
+
+    // Step 1: Decrease values
+    for (int i = 0; i < n; i++)
+        arr[i]--;
+
+    // Step 2: Encode frequency
+    for (int i = 0; i < n; i++)
+    {
+        int index = arr[i] % n;
+        arr[index] += n;
+    }
+
+    // Step 3: Decode result
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] / n == 2)
+            ans[0] = i + 1;   // repeating
+        else if (arr[i] / n == 0)
+            ans[1] = i + 1;   // missing
+    }
+
+    return ans;
+}
+
+Time Complexity: O(n)  
+Space Complexity: O(1)
+
+===============================================================================
+🔟 PROBLEM 3: COUNT FREQUENCY OF ALL NUMBERS (1 to n)
+===============================================================================
+
+Same constraints:
+- Numbers from 1 to n
+
+Goal:
+Print how many times each number occurs.
+
+Same encoding trick:
+- Decrease by 1
+- Add n at arr[arr[i] % n]
+- Frequency = arr[i] / n
+
+No extra array needed.
+
+===============================================================================
+1️⃣1️⃣ PROBLEM 4: MAJORITY ELEMENT (MOORE’S VOTING ALGORITHM)
+===============================================================================
+
+Problem:
+Find the element that appears MORE THAN n/2 times.
+
+Guarantee:
+Such an element ALWAYS exists.
+
+-------------------------------------------------------------------------------
+INTUITION (ELECTION ANALOGY)
+-------------------------------------------------------------------------------
+
+- Each number = candidate
+- Each occurrence = vote
+- Different votes cancel each other
+- Majority survives till the end
+
+-------------------------------------------------------------------------------
+ALGORITHM
+-------------------------------------------------------------------------------
+
+Maintain:
+- candidate
+- count
+
+Rules:
+1. If count == 0:
+   candidate = current element
+   count = 1
+2. Else if current == candidate:
+   count++
+3. Else:
+   count--
+
+-------------------------------------------------------------------------------
+CODE
+-------------------------------------------------------------------------------
+
+int majorityElement(vector<int>& nums)
+{
+    int candidate = 0, count = 0;
+
+    for (int num : nums)
+    {
+        if (count == 0)
+        {
+            candidate = num;
+            count = 1;
+        }
+        else if (num == candidate)
+            count++;
+        else
+            count--;
+    }
+
+    return candidate;
+}
+
+Time: O(n)  
+Space: O(1)
+
+-------------------------------------------------------------------------------
+WHEN MAJORITY IS NOT GUARANTEED
+-------------------------------------------------------------------------------
+
+Do one extra pass to VERIFY:
+- Count candidate occurrences
+- If > n/2 → valid
+- Else → return -1
+
+===============================================================================
+🎯 FINAL TAKEAWAYS
+===============================================================================
+
+✔ Modulo is EXTREMELY powerful  
+✔ Two values can be stored in one position  
+✔ Limited range problems → use indexing tricks  
+✔ In-place encoding saves memory  
+✔ Moore’s Voting is a MUST-KNOW interview algorithm  
+
+If this lecture “clicked” in your brain,
+you’ve officially LEVELLED UP as a coder.
+
+===============================================================================
+END OF ARRAY SERIES
+NEXT: STRINGS → POINTERS → RECURSION
+JAI HIND 🇮🇳
+===============================================================================
+*/
