@@ -1,0 +1,387 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES – PART 2
+2D ARRAYS (COLUMN MAJOR, 2D VECTORS, WAVE, SPIRAL, TRANSPOSE)
+(Complete Classroom Reconstruction – English – GitHub Ready – Single File)
+===============================================================================
+
+⚠️ This is NOT a summary.
+⚠️ This is a full reconstruction of the teacher’s lecture.
+⚠️ All logic, examples, jokes, and edge-case reasoning are preserved.
+⚠️ Language converted from Hinglish → Clear English.
+⚠️ Code language: C++
+
+===============================================================================
+0️⃣ LECTURE INTRODUCTION
+===============================================================================
+
+Hello Code Army, how are you all?
+
+I hope everyone is doing well.
+
+Yesterday we studied:
+✔ Row Major Order
+✔ Memory layout of 2D arrays
+✔ Index calculation
+
+Today we will study:
+👉 COLUMN MAJOR ORDER
+👉 WHY systems choose row or column major
+👉 REAL LIFE DATABASE EXAMPLES
+👉 2D VECTORS
+👉 IMPORTANT MATRIX PROBLEMS
+
+This is the SECOND PART of 2D Arrays.
+
+===============================================================================
+1️⃣ COLUMN MAJOR ORDER
+===============================================================================
+
+In column major order:
+- Data is stored COLUMN by COLUMN
+- First complete column is stored
+- Then second column
+- Then third column
+
+Example matrix (4 × 3):
+
+1   2   3
+4   5   6
+7   8   9
+10 11  12
+
+Column Major storage order:
+
+1, 4, 7, 10,
+2, 5, 8, 11,
+3, 6, 9, 12
+
+Difference:
+- Row Major → Row-wise storage
+- Column Major → Column-wise storage
+
+===============================================================================
+2️⃣ FIND INDEX IN COLUMN MAJOR ORDER
+===============================================================================
+
+Given:
+- arr[i][j]
+- Rows = R
+- Columns = C
+
+Column Major index formula:
+
+index = (j * R) + i
+
+Homework given in lecture:
+👉 Derive this formula yourself (same logic as row major)
+
+===============================================================================
+3️⃣ WHICH LANGUAGES FOLLOW WHAT?
+===============================================================================
+
+C / C++ / Java:
+✔ Follow ROW MAJOR ORDER by default
+
+Fortran:
+✔ Follows COLUMN MAJOR ORDER
+
+Reason:
+- Faster address calculation
+- Compiler simplicity
+- Cache friendliness
+
+===============================================================================
+4️⃣ REAL WORLD DATABASE EXAMPLE (VERY IMPORTANT)
+===============================================================================
+
+Consider a banking system:
+
+Each user has:
+- ID
+- Account Number
+- Balance
+
+Tabular data:
+
+ID   Account   Balance
+1    12        100
+2    23        200
+3    46        300
+4    72        100
+5    85        500
+
+This is clearly a 2D structure.
+
+Memory CANNOT store 2D directly.
+Internally, it MUST be stored as 1D contiguous memory.
+
+Now decision:
+- Store row-wise OR column-wise?
+
+===============================================================================
+5️⃣ WHY COLUMN MAJOR CAN BE BETTER (SUM EXAMPLE)
+===============================================================================
+
+If bank owner wants:
+👉 TOTAL MONEY in bank
+
+Column Major stores balances CONTIGUOUSLY.
+
+So summing balances is:
+- Sequential access
+- Cache friendly
+- Faster
+
+Row Major would require:
+- Jumping memory locations
+- Slower summation
+
+===============================================================================
+6️⃣ WHY ROW MAJOR IS BETTER (LOGIN SYSTEM)
+===============================================================================
+
+Login system:
+- Email
+- Phone
+- Password
+
+You NEVER do mathematical operations.
+You just MATCH row-wise data.
+
+So row-major is better:
+- One user = one row
+- Easy comparison
+- Minimal jumps
+
+👉 Conclusion:
+Choice depends on REQUIREMENT.
+
+===============================================================================
+7️⃣ WHY 2D ARRAYS ARE STORED AS 1D IN MEMORY
+===============================================================================
+
+Arrays must be:
+✔ Contiguous
+✔ Predictable address calculation
+
+If 2D were stored randomly:
+- Address of next element unknown
+- Formula fails
+- CPU becomes slow
+
+Hence:
+👉 2D arrays are flattened internally
+
+===============================================================================
+8️⃣ INTRODUCTION TO 2D VECTOR
+===============================================================================
+
+2D Vector = Vector of vectors
+
+Syntax:
+
+vector<vector<int>> matrix;
+
+This is dynamic:
+- Rows can change
+- Columns can change
+- Safer than arrays
+
+===============================================================================
+9️⃣ CREATING 2D VECTOR
+===============================================================================
+
+vector<vector<int>> matrix(rows, vector<int>(cols, value));
+
+Example:
+
+vector<vector<int>> matrix(3, vector<int>(4, 2));
+
+Means:
+- 3 rows
+- 4 columns
+- All values = 2
+
+===============================================================================
+🔟 ACCESS & UPDATE
+===============================================================================
+
+matrix[0][2] = 5;
+
+Input:
+
+cin >> matrix[i][j];
+
+===============================================================================
+1️⃣1️⃣ FIND ROWS & COLUMNS IN 2D VECTOR
+===============================================================================
+
+Rows:
+matrix.size()
+
+Columns:
+matrix[0].size()
+
+===============================================================================
+1️⃣2️⃣ WAVE PRINT (COLUMN WISE)
+===============================================================================
+
+Problem:
+Print matrix in wave form column-wise.
+
+Logic:
+- Traverse column by column
+- If column index is EVEN → top to bottom
+- If column index is ODD → bottom to top
+
+Code Logic:
+
+for (int j = 0; j < cols; j++)
+{
+    if (j % 2 == 0)
+    {
+        for (int i = 0; i < rows; i++)
+            print(arr[i][j]);
+    }
+    else
+    {
+        for (int i = rows - 1; i >= 0; i--)
+            print(arr[i][j]);
+    }
+}
+
+Time Complexity: O(rows × cols)
+Space Complexity: O(1)
+
+===============================================================================
+1️⃣3️⃣ SPIRAL MATRIX (CORE INTERVIEW PROBLEM)
+===============================================================================
+
+Approach:
+Maintain four boundaries:
+- top
+- bottom
+- left
+- right
+
+Process order:
+1. Print top row
+2. Print right column
+3. Print bottom row
+4. Print left column
+
+After each step, shrink boundary.
+
+===============================================================================
+1️⃣4️⃣ STOP CONDITIONS (EDGE CASES)
+===============================================================================
+
+Must check:
+- top <= bottom
+- left <= right
+
+Otherwise:
+❌ Duplicate prints
+❌ Wrong answers
+
+===============================================================================
+1️⃣5️⃣ SPIRAL MATRIX CODE LOGIC (VECTOR OUTPUT)
+===============================================================================
+
+while (top <= bottom && left <= right)
+{
+    // Top row
+    for (j = left; j <= right; j++)
+        ans.push_back(matrix[top][j]);
+    top++;
+
+    // Right column
+    for (i = top; i <= bottom; i++)
+        ans.push_back(matrix[i][right]);
+    right--;
+
+    // Bottom row
+    if (top <= bottom)
+    {
+        for (j = right; j >= left; j--)
+            ans.push_back(matrix[bottom][j]);
+        bottom--;
+    }
+
+    // Left column
+    if (left <= right)
+    {
+        for (i = bottom; i >= top; i--)
+            ans.push_back(matrix[i][left]);
+        left++;
+    }
+}
+
+Time Complexity: O(rows × cols)
+Space Complexity: O(rows × cols)
+
+===============================================================================
+1️⃣6️⃣ TRANSPOSE OF MATRIX
+===============================================================================
+
+Transpose means:
+- Convert rows into columns
+- Convert columns into rows
+
+Only possible directly for:
+✔ Square Matrix (n × n)
+
+===============================================================================
+1️⃣7️⃣ TRANSPOSE USING EXTRA MATRIX
+===============================================================================
+
+new[j][i] = matrix[i][j];
+
+Time Complexity: O(n²)
+Space Complexity: O(n²)
+
+===============================================================================
+1️⃣8️⃣ IN-PLACE TRANSPOSE (IMPORTANT)
+===============================================================================
+
+Key observation:
+- Diagonal elements stay same
+- Swap only upper triangle with lower triangle
+
+Code:
+
+for (int i = 0; i < n; i++)
+{
+    for (int j = i + 1; j < n; j++)
+    {
+        swap(matrix[i][j], matrix[j][i]);
+    }
+}
+
+Why j = i + 1?
+✔ Prevent double swapping
+✔ Avoid reverting changes
+
+Time Complexity: O(n²)
+Space Complexity: O(1)
+
+===============================================================================
+🎯 FINAL TAKEAWAYS
+===============================================================================
+
+✔ Column Major vs Row Major fully understood
+✔ Real-world database reasoning
+✔ 2D Vector creation & usage
+✔ Wave print logic
+✔ Spiral matrix with edge cases
+✔ Transpose (extra + in-place)
+✔ Interview-level thinking achieved
+
+This lecture was HEAVY — but foundational.
+
+JAI HIND 🇮🇳
+===============================================================================
+END OF FILE
+===============================================================================
+*/
