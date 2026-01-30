@@ -1,0 +1,332 @@
+/*
+================================================================================
+📘 LECTURE NOTES: FUNCTIONS IN C++
+(Complete Classroom Reconstruction – English – GitHub Ready – Single File)
+================================================================================
+
+⚠️ These notes are NOT a summary.
+⚠️ This is a full classroom-style explanation.
+⚠️ Some concepts are intentionally repeated.
+⚠️ Focus is on WHY + HOW, not just syntax.
+
+================================================================================
+0️⃣ LECTURE INTRODUCTION (Teacher Speaking)
+================================================================================
+
+Hello everyone, how are you all?
+
+Yesterday we solved some LeetCode questions,
+and today we are starting a NEW topic.
+
+The topic name is:
+👉 FUNCTIONS IN C++
+
+Do NOT panic.
+This is a new word, not a difficult concept.
+
+This topic is EXTREMELY IMPORTANT because:
+- Recursion is based on functions
+- Dynamic Programming uses functions
+- Graph algorithms use functions
+- Competitive programming depends on functions
+- Interviews EXPECT function-based thinking
+
+So today, we will understand:
+✔ What is a function
+✔ Why do we need it
+✔ How to write it
+✔ How to use it properly
+
+================================================================================
+1️⃣ PROBLEM STATEMENT (Why Do We Need Functions?)
+================================================================================
+
+Teacher says:
+
+"Suppose I give you two numbers A and B."
+
+Your tasks:
+1️⃣ Check whether A is a prime number or not
+2️⃣ If A is NOT prime → find factorial of A
+3️⃣ Check whether B is a prime number or not
+4️⃣ If B is NOT prime → find factorial of B
+
+Now think carefully.
+
+--------------------------------------------------------------------------------
+❌ WITHOUT FUNCTIONS (Bad Approach)
+--------------------------------------------------------------------------------
+
+If we do NOT use functions, then:
+- Write prime-checking code for A
+- Write factorial code for A
+- Again write prime-checking code for B
+- Again write factorial code for B
+
+Problems:
+❌ Same logic repeated again and again
+❌ Copy–paste coding
+❌ Code becomes long
+❌ Hard to read
+❌ Hard to debug
+
+Teacher says:
+"This is NOT professional coding."
+
+================================================================================
+2️⃣ REAL PROBLEM IDENTIFICATION
+================================================================================
+
+The real problem is NOT:
+- Prime number
+- Factorial
+
+The real problem is:
+👉 Repeating the same code multiple times
+
+💡 Solution:
+👉 Write the logic ONCE
+👉 Reuse it whenever needed
+
+This idea leads to:
+➡️ FUNCTIONS
+
+================================================================================
+3️⃣ WHAT IS A FUNCTION? (Conceptual Definition)
+================================================================================
+
+A FUNCTION is:
+- A block of code
+- Written once
+- Can be used multiple times
+- Takes input (optional)
+- Produces output (optional)
+
+📌 Real-life example:
+- Calculator → same add logic, different numbers
+- Washing machine → same process, different clothes
+
+================================================================================
+4️⃣ GENERAL STRUCTURE OF A FUNCTION
+================================================================================
+
+return_type function_name(parameters)
+{
+    // function body
+    return value;
+}
+
+--------------------------------------------------------------------------------
+🔹 RETURN TYPE
+--------------------------------------------------------------------------------
+
+Return type tells:
+"What type of answer will this function give?"
+
+Examples:
+- int      → integer value
+- bool     → true / false
+- double   → decimal value
+- char     → character
+- void     → returns nothing
+
+--------------------------------------------------------------------------------
+🔹 FUNCTION NAME
+--------------------------------------------------------------------------------
+
+- Any meaningful name
+- Should describe the work
+
+Example:
+isPrime
+factorial
+sum
+multiply
+
+--------------------------------------------------------------------------------
+🔹 PARAMETERS
+--------------------------------------------------------------------------------
+
+- Inputs given to the function
+- Can be zero, one, or many
+- Each parameter has a data type
+
+================================================================================
+5️⃣ PRIME NUMBER FUNCTION (STEP-BY-STEP)
+================================================================================
+
+Definition:
+A number is prime if:
+- It is greater than 1
+- It has exactly two divisors (1 and itself)
+
+Return type:
+👉 bool (true or false)
+
+*/
+
+#include <iostream>
+using namespace std;
+
+bool isPrime(int n)
+{
+    // Step 1: Numbers less than or equal to 1 are NOT prime
+    if (n <= 1)
+        return false;
+
+    // Step 2: Check divisibility from 2 to n-1
+    for (int i = 2; i < n; i++)
+    {
+        // If divisible by any number
+        if (n % i == 0)
+            return false;  // Not prime
+    }
+
+    // Step 3: No divisor found
+    return true;  // Prime number
+}
+
+/*
+================================================================================
+6️⃣ FACTORIAL FUNCTION (DETAILED)
+================================================================================
+
+Factorial definition:
+n! = 1 × 2 × 3 × ... × n
+
+Return type:
+👉 int (for small values)
+
+*/
+
+int factorial(int n)
+{
+    int answer = 1;
+
+    for (int i = 1; i <= n; i++)
+        answer = answer * i;
+
+    return answer;
+}
+
+/*
+================================================================================
+7️⃣ MAIN FUNCTION (USING FUNCTIONS)
+================================================================================
+*/
+
+int main()
+{
+    int A, B;
+    cin >> A >> B;
+
+    // Check A
+    if (isPrime(A))
+        cout << "A is Prime\n";
+    else
+        cout << "Factorial of A: " << factorial(A) << endl;
+
+    // Check B
+    if (isPrime(B))
+        cout << "B is Prime\n";
+    else
+        cout << "Factorial of B: " << factorial(B) << endl;
+
+    return 0;
+}
+
+/*
+================================================================================
+8️⃣ FUNCTION CALL EXPLAINED
+================================================================================
+
+isPrime(A);
+
+This is called FUNCTION CALL.
+
+- A is the argument
+- n is the parameter
+
+Argument value is copied into parameter.
+
+================================================================================
+9️⃣ ARGUMENT vs PARAMETER
+================================================================================
+
+Function definition:
+bool isPrime(int n)
+                 ↑ parameter
+
+Function call:
+isPrime(7)
+        ↑ argument
+
+================================================================================
+🔟 MULTIPLE PARAMETERS FUNCTION
+================================================================================
+*/
+
+int sum(int a, int b)
+{
+    return a + b;
+}
+
+/*
+Call:
+sum(3, 4) → returns 7
+
+================================================================================
+1️⃣1️⃣ VOID FUNCTION (NO RETURN VALUE)
+================================================================================
+*/
+
+void printMessage()
+{
+    cout << "Hello Coder Army\n";
+}
+
+/*
+Call:
+printMessage();
+
+- No return
+- Only performs an action
+
+================================================================================
+1️⃣2️⃣ WHEN TO USE WHICH RETURN TYPE?
+================================================================================
+
+Use int / bool / double:
+✔ When you need the result later
+
+Use void:
+✔ When you only want to print or perform an action
+
+================================================================================
+1️⃣3️⃣ WHY FUNCTIONS ARE IMPORTANT
+================================================================================
+
+✅ Code reusability
+✅ Clean structure
+✅ Easy debugging
+✅ Readability
+✅ Industry-level coding
+
+Without functions → messy code  
+With functions → professional code
+
+================================================================================
+🎯 FINAL TAKEAWAY
+================================================================================
+
+❌ Writing same logic again and again = beginner
+✅ Writing reusable functions = engineer
+
+Write once.
+Use many times.
+Think like a programmer.
+
+================================================================================
+END OF FILE
+================================================================================
+*/
