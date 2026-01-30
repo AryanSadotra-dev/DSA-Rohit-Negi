@@ -1,0 +1,370 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES
+TOPIC: MATRIX ROTATION (90°, 180°, 270° | CLOCKWISE & ANTICLOCKWISE)
+(Complete Classroom Reconstruction – English – GitHub Ready – Single File)
+===============================================================================
+
+⚠️ These notes are a DIRECT reconstruction of the lecture.
+⚠️ Nothing is skipped.
+⚠️ Pattern thinking is preserved.
+⚠️ Language converted from Hinglish → Clear English.
+⚠️ Code language: C++.
+⚠️ Focus: HOW TO THINK, not just code.
+
+===============================================================================
+0️⃣ LECTURE INTRODUCTION
+===============================================================================
+
+Hello Good Army, how are you all?
+I hope everyone is doing well.
+
+Today we are going to solve PROBLEMS related to:
+👉 MATRIX ROTATION
+
+That means:
+- Rotate matrix 90° clockwise
+- Rotate matrix 90° anticlockwise
+- Rotate matrix 180°
+- Rotate matrix 270°
+- Rotate matrix K times (any number of times)
+
+I GUARANTEE:
+After today’s lecture, you will NEVER get stuck in matrix
+rotation problems again.
+
+So let’s start by understanding the problem.
+
+===============================================================================
+1️⃣ PROBLEM STATEMENT
+===============================================================================
+
+You are given a matrix:
+- Size: N × N
+- Square matrix (rows = columns)
+
+Task:
+Rotate the matrix by a given angle.
+
+Example:
+Rotate matrix by 90° clockwise.
+
+Original matrix (4 × 4):
+
+1   2   3   4
+5   6   7   8
+9   10  11  12
+13  14  15  16
+
+After 90° clockwise rotation:
+
+13  9   5   1
+14  10  6   2
+15  11  7   3
+16  12  8   4
+
+This is the OUTPUT we need to generate.
+
+===============================================================================
+2️⃣ FIRST STEP – PATTERN ANALYSIS
+===============================================================================
+
+Before coding, we ANALYZE the pattern.
+
+Observe carefully:
+
+- First row (1 2 3 4) appears in the LAST column
+- Second row (5 6 7 8) appears in the SECOND LAST column
+- Third row (9 10 11 12) appears in the THIRD LAST column
+- Last row (13 14 15 16) appears in the FIRST column
+
+So clearly:
+👉 Rows are turning into columns.
+
+===============================================================================
+3️⃣ INDEX LEVEL ANALYSIS (VERY IMPORTANT)
+===============================================================================
+
+Let the matrix be named:
+matrix[i][j]
+
+Let answer matrix be:
+ans[r][c]
+
+Now observe index mapping:
+
+matrix[0][0] → ans[0][3]
+matrix[0][1] → ans[1][3]
+matrix[0][2] → ans[2][3]
+matrix[0][3] → ans[3][3]
+
+matrix[1][0] → ans[0][2]
+matrix[1][1] → ans[1][2]
+...
+
+Pattern found:
+- Column index of answer = n - 1 - i
+- Row index of answer = j
+
+So relation becomes:
+
+ans[j][n - 1 - i] = matrix[i][j]
+
+This is the DIRECT mathematical relationship.
+
+===============================================================================
+4️⃣ APPROACH 1 – USING EXTRA MATRIX (O(N²) SPACE)
+===============================================================================
+
+Steps:
+1. Create an empty matrix ans[n][n]
+2. Use the relation:
+   ans[j][n - 1 - i] = matrix[i][j]
+3. Copy ans back if needed
+
+Code logic:
+
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < n; j++)
+    {
+        ans[j][n - 1 - i] = matrix[i][j];
+    }
+}
+
+Time Complexity: O(N²)
+Space Complexity: O(N²)
+
+This works perfectly, but uses extra space.
+
+===============================================================================
+5️⃣ IS THIS THE MOST OPTIMIZED SOLUTION?
+===============================================================================
+
+Answer: ❌ NO
+
+We can solve this:
+👉 WITHOUT using extra space
+👉 In-place
+👉 Space Complexity = O(1)
+
+Let’s find a better pattern.
+
+===============================================================================
+6️⃣ IN-PLACE APPROACH (MOST IMPORTANT)
+===============================================================================
+
+Key Observation:
+
+For 90° CLOCKWISE rotation:
+1️⃣ Transpose the matrix
+2️⃣ Reverse each row
+
+That’s it. Just two steps.
+
+===============================================================================
+7️⃣ WHY DOES THIS WORK?
+===============================================================================
+
+Step 1: TRANSPOSE
+- Rows become columns
+- Columns become rows
+
+Step 2: REVERSE EACH ROW
+- Adjusts orientation to clockwise direction
+
+This exactly matches the rotation pattern.
+
+===============================================================================
+8️⃣ STEP 1 – TRANSPOSE THE MATRIX
+===============================================================================
+
+Transpose means:
+matrix[i][j] ↔ matrix[j][i]
+
+IMPORTANT:
+- Only swap upper triangle
+- Avoid double swapping
+- Diagonal remains unchanged
+
+Code:
+
+for (int i = 0; i < n; i++)
+{
+    for (int j = i + 1; j < n; j++)
+    {
+        swap(matrix[i][j], matrix[j][i]);
+    }
+}
+
+Time Complexity: O(N²)
+Space Complexity: O(1)
+
+===============================================================================
+9️⃣ STEP 2 – REVERSE EACH ROW
+===============================================================================
+
+For every row:
+- Use two pointers
+- Swap start and end
+
+Code:
+
+for (int i = 0; i < n; i++)
+{
+    int start = 0;
+    int end = n - 1;
+
+    while (start < end)
+    {
+        swap(matrix[i][start], matrix[i][end]);
+        start++;
+        end--;
+    }
+}
+
+Now the matrix is rotated 90° CLOCKWISE.
+
+===============================================================================
+🔟 FINAL IN-PLACE SOLUTION (90° CLOCKWISE)
+===============================================================================
+
+void rotate90Clockwise(vector<vector<int>>& matrix)
+{
+    int n = matrix.size();
+
+    // Step 1: Transpose
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++)
+            swap(matrix[i][j], matrix[j][i]);
+
+    // Step 2: Reverse each row
+    for (int i = 0; i < n; i++)
+        reverse(matrix[i].begin(), matrix[i].end());
+}
+
+Time Complexity: O(N²)
+Space Complexity: O(1)
+
+===============================================================================
+1️⃣1️⃣ ROTATING MATRIX 180°
+===============================================================================
+
+180° rotation means:
+👉 Rotate 90° twice
+
+So simply:
+rotate90Clockwise(matrix);
+rotate90Clockwise(matrix);
+
+OR
+
+Alternative pattern:
+1. Reverse all columns
+2. Reverse all rows
+
+Both work.
+
+Time Complexity: O(N²)
+Space Complexity: O(1)
+
+===============================================================================
+1️⃣2️⃣ ROTATING MATRIX 270° CLOCKWISE
+===============================================================================
+
+270° clockwise = 90° anticlockwise
+
+Method:
+Rotate 90° clockwise THREE times.
+
+for (int k = 0; k < 3; k++)
+    rotate90Clockwise(matrix);
+
+===============================================================================
+1️⃣3️⃣ 90° ANTICLOCKWISE ROTATION
+===============================================================================
+
+Key relation:
+90° anticlockwise = 270° clockwise
+
+Two clean approaches:
+
+APPROACH 1:
+- Rotate 90° clockwise three times
+
+APPROACH 2 (Direct):
+1. Transpose
+2. Reverse each column
+
+===============================================================================
+1️⃣4️⃣ K-TIMES ROTATION (VERY IMPORTANT INTERVIEW PART)
+===============================================================================
+
+If matrix is rotated K times:
+
+Each rotation = 90°
+
+But:
+4 rotations = 360° = original matrix
+
+So we only care about:
+
+k = k % 4
+
+Cases:
+k = 0 → No rotation
+k = 1 → 90°
+k = 2 → 180°
+k = 3 → 270°
+
+Never rotate blindly K times.
+
+===============================================================================
+1️⃣5️⃣ GENERIC FUNCTION FOR K ROTATIONS
+===============================================================================
+
+void rotateKTimes(vector<vector<int>>& matrix, int k)
+{
+    k = k % 4;
+
+    while (k--)
+        rotate90Clockwise(matrix);
+}
+
+Efficient and clean.
+
+===============================================================================
+1️⃣6️⃣ KEY TAKEAWAYS (MOST IMPORTANT)
+===============================================================================
+
+✔ Always analyze pattern before coding  
+✔ Rotation problems reduce to:
+   - Transpose
+   - Reverse rows or columns  
+✔ 90° clockwise = Transpose + Reverse rows  
+✔ 90° anticlockwise = Transpose + Reverse columns  
+✔ K rotations → use k % 4  
+✔ Space optimization matters  
+
+Once 90° is mastered:
+👉 All rotations become EASY.
+
+===============================================================================
+🎯 FINAL MESSAGE FROM TEACHER
+===============================================================================
+
+After today:
+- Any matrix rotation problem
+- Any angle
+- Any number of times
+
+You can solve it.
+
+Practice the homework.
+Try to create your OWN patterns.
+
+JAI HIND 🇮🇳
+===============================================================================
+END OF FILE
+===============================================================================
+*/
