@@ -1,0 +1,383 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES
+TOPIC: ARRAY PRACTICE QUESTIONS + FUNCTIONS WITH ARRAYS
+(Complete Classroom Reconstruction – English – GitHub Ready – Single File)
+===============================================================================
+
+⚠️ This is a DIRECT reconstruction of the lecture.
+⚠️ Teacher-style explanation preserved.
+⚠️ Nothing skipped.
+⚠️ English only.
+⚠️ C++ only.
+⚠️ Focus on logic, dry-run, and interview thinking.
+
+===============================================================================
+0️⃣ LECTURE INTRODUCTION
+===============================================================================
+
+Hello Coder Army, how are you all?
+
+Today we are going to solve some ARRAY QUESTIONS so that our
+HAND PRACTICE becomes strong.
+
+Along with that, today we will learn:
+👉 How to pass an ARRAY into a FUNCTION
+
+So without any delay, let’s start the lecture.
+There is A LOT to learn today.
+
+===============================================================================
+1️⃣ QUESTION 1: SEARCH AN ELEMENT IN AN ARRAY
+===============================================================================
+
+Problem Statement:
+- You are given an array.
+- You are given an element X.
+- If X is present in the array, return its INDEX.
+- If X is NOT present, return -1.
+
+Why -1?
+Because -1 is not a valid index.
+
+-------------------------------------------------------------------------------
+EXAMPLE
+-------------------------------------------------------------------------------
+
+Array: [10, 20, 7, 11, 8, 4]
+Search element: 11
+
+Step-by-step search:
+- Check 10 == 11 ❌
+- Check 20 == 11 ❌
+- Check 7 == 11 ❌
+- Check 11 == 11 ✅
+
+Answer = index = 3
+
+If we search 18:
+- Checked all elements
+- Not found
+- Return -1
+
+-------------------------------------------------------------------------------
+LOGIC (LINEAR SEARCH)
+-------------------------------------------------------------------------------
+
+1. Loop from index 0 to n-1
+2. Compare arr[i] with X
+3. If equal → return i
+4. After loop → return -1
+
+-------------------------------------------------------------------------------
+CODE
+-------------------------------------------------------------------------------
+
+int search(int arr[], int n, int x)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == x)
+            return i;
+    }
+    return -1;
+}
+
+Time Complexity: O(n)  
+Space Complexity: O(1)
+
+-------------------------------------------------------------------------------
+DRY RUN (SEARCH 8)
+-------------------------------------------------------------------------------
+
+i=0 → 10 != 8  
+i=1 → 20 != 8  
+i=2 → 7  != 8  
+i=3 → 11 != 8  
+i=4 → 8  == 8 → return 4
+
+===============================================================================
+2️⃣ QUESTION 2: REVERSE AN ARRAY
+===============================================================================
+
+Problem:
+Reverse the array IN-PLACE (not just printing in reverse).
+
+Example:
+Input:  [6, 8, 14, 11, 3, 9]
+Output: [9, 3, 11, 14, 8, 6]
+
+-------------------------------------------------------------------------------
+METHOD 1: USING EXTRA ARRAY (NOT OPTIMAL)
+-------------------------------------------------------------------------------
+
+- Create a temporary array
+- Copy elements from end to start
+- Copy back to original array
+
+Works, but uses extra space.
+
+-------------------------------------------------------------------------------
+METHOD 2: TWO POINTER (OPTIMAL)
+-------------------------------------------------------------------------------
+
+Idea:
+- Take two pointers:
+  start = 0
+  end = n - 1
+- Swap arr[start] and arr[end]
+- start++, end--
+- Stop when start >= end
+
+-------------------------------------------------------------------------------
+CODE
+-------------------------------------------------------------------------------
+
+void reverseArray(int arr[], int n)
+{
+    int start = 0, end = n - 1;
+
+    while (start < end)
+    {
+        swap(arr[start], arr[end]);
+        start++;
+        end--;
+    }
+}
+
+Time Complexity: O(n)  
+Space Complexity: O(1)
+
+-------------------------------------------------------------------------------
+EVEN & ODD SIZE HANDLING
+-------------------------------------------------------------------------------
+
+- Even size → perfect swaps
+- Odd size → middle element stays unchanged
+- Condition `start < end` handles both safely
+
+===============================================================================
+3️⃣ QUESTION 3: SECOND LARGEST ELEMENT IN ARRAY
+===============================================================================
+
+Problem:
+Find the SECOND LARGEST DISTINCT element.
+
+Example:
+[8, 2, 6, 4, 3, 8, 1]
+Largest = 8
+Second Largest = 6
+
+-------------------------------------------------------------------------------
+REAL LIFE ANALOGY
+-------------------------------------------------------------------------------
+
+Think of students standing randomly.
+First find the tallest student.
+Then ignore him and find the tallest among the rest.
+
+-------------------------------------------------------------------------------
+STEP 1: FIND LARGEST
+-------------------------------------------------------------------------------
+
+int largest = INT_MIN;
+for (int i = 0; i < n; i++)
+    largest = max(largest, arr[i]);
+
+-------------------------------------------------------------------------------
+STEP 2: FIND SECOND LARGEST (IGNORE LARGEST)
+-------------------------------------------------------------------------------
+
+int second = -1;   // because constraints guarantee elements >= 1
+
+for (int i = 0; i < n; i++)
+{
+    if (arr[i] != largest)
+        second = max(second, arr[i]);
+}
+
+return second;
+
+-------------------------------------------------------------------------------
+WHY -1 INITIALIZATION?
+-------------------------------------------------------------------------------
+
+Problem statement says:
+- Elements are from 1 to 10^5
+- If second largest does not exist → return -1
+
+So -1 is SAFE and meaningful.
+
+===============================================================================
+4️⃣ QUESTION 4: FIND MISSING NUMBER
+===============================================================================
+
+Given:
+- Array size = n-1
+- Elements from 1 to n
+- Exactly ONE number is missing
+
+Example:
+n = 6  
+Array: [1, 3, 4, 5, 6]  
+Missing = 2
+
+-------------------------------------------------------------------------------
+OPTIMAL LOGIC (SUM METHOD)
+-------------------------------------------------------------------------------
+
+Expected Sum = n * (n + 1) / 2  
+Actual Sum = sum of array elements  
+
+Missing Number = Expected Sum - Actual Sum
+
+-------------------------------------------------------------------------------
+CODE
+-------------------------------------------------------------------------------
+
+int missingNumber(int arr[], int n)
+{
+    int sum = 0;
+    for (int i = 0; i < n - 1; i++)
+        sum += arr[i];
+
+    int expected = n * (n + 1) / 2;
+    return expected - sum;
+}
+
+Time Complexity: O(n)  
+Space Complexity: O(1)
+
+===============================================================================
+5️⃣ QUESTION 5: FIBONACCI SERIES USING ARRAY
+===============================================================================
+
+Fibonacci Series:
+0 1 1 2 3 5 8 13 ...
+
+-------------------------------------------------------------------------------
+LOGIC
+-------------------------------------------------------------------------------
+
+- First two elements are fixed:
+  arr[0] = 0
+  arr[1] = 1
+
+- For i ≥ 2:
+  arr[i] = arr[i-1] + arr[i-2]
+
+Nth Fibonacci number is stored at:
+arr[n-1] (0-based indexing)
+
+-------------------------------------------------------------------------------
+CODE
+-------------------------------------------------------------------------------
+
+int fibonacci(int n)
+{
+    int arr[1000];   // constraint-safe size
+
+    arr[0] = 0;
+    arr[1] = 1;
+
+    for (int i = 2; i <= n - 1; i++)
+        arr[i] = arr[i-1] + arr[i-2];
+
+    return arr[n-1];
+}
+
+===============================================================================
+6️⃣ QUESTION 6: ROTATE ARRAY BY ONE (CLOCKWISE)
+===============================================================================
+
+Problem:
+Rotate array by ONE position clockwise.
+
+Example:
+Input:  [2, 7, 4, 11, 5, 8]
+Output: [8, 2, 7, 4, 11, 5]
+
+-------------------------------------------------------------------------------
+OPTIMAL IN-PLACE METHOD
+-------------------------------------------------------------------------------
+
+1. Store last element
+2. Shift elements right
+3. Put last element at index 0
+
+-------------------------------------------------------------------------------
+CODE
+-------------------------------------------------------------------------------
+
+void rotateByOne(int arr[], int n)
+{
+    int last = arr[n - 1];
+
+    for (int i = n - 2; i >= 0; i--)
+        arr[i + 1] = arr[i];
+
+    arr[0] = last;
+}
+
+Time Complexity: O(n)  
+Space Complexity: O(1)
+
+===============================================================================
+7️⃣ PASSING ARRAY TO FUNCTION
+===============================================================================
+
+Key Rule:
+When passing an array to a function,
+👉 it is passed as a POINTER (address), NOT as a full array.
+
+-------------------------------------------------------------------------------
+CALLING FUNCTION
+-------------------------------------------------------------------------------
+
+int arr[5] = {3, 2, 1, 6, 5};
+printArray(arr, 5);
+
+-------------------------------------------------------------------------------
+FUNCTION DEFINITION
+-------------------------------------------------------------------------------
+
+void printArray(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
+
+-------------------------------------------------------------------------------
+IMPORTANT PROOF (ARRAY ≠ ARRAY INSIDE FUNCTION)
+-------------------------------------------------------------------------------
+
+sizeof(original array) → full size  
+sizeof(arr inside function) → 8 bytes (address size on 64-bit system)
+
+This proves:
+👉 Array decays into pointer when passed to function
+
+===============================================================================
+8️⃣ FINAL TAKEAWAYS
+===============================================================================
+
+✔ Linear Search  
+✔ Reverse Array (Two Pointer)  
+✔ Second Largest (Distinct)  
+✔ Missing Number (Sum Formula)  
+✔ Fibonacci using Array  
+✔ Rotate Array by One  
+✔ Passing Array to Function  
+✔ Array → Pointer behavior explained  
+
+This lecture builds:
+- LOGIC
+- DRY RUN SKILLS
+- INTERVIEW THINKING
+
+===============================================================================
+END OF LECTURE
+NEXT TOPIC: POINTERS (IN DEPTH)
+JAI HIND 🇮🇳
+===============================================================================
+*/
