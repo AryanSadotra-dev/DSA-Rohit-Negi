@@ -1,0 +1,333 @@
+/*
+====================================================================
+📘 LECTURE NOTES
+Topic      : Control Flow Statements in C++
+Includes   : while, do-while, break, continue, switch
+Style      : Teacher Classroom Style (Hinglish)
+Format     : Single GitHub-Ready File
+====================================================================
+
+⚠️ DIRECT lecture reconstruction
+⚠️ Hinglish language intentional
+⚠️ NOTHING skipped
+⚠️ Sir-style repetition preserved
+====================================================================
+*/
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    /*
+    ============================================================
+    1️⃣ OPENING – CLASS START
+    ============================================================
+
+    "Hello good morning kaise ho aap sab log?"
+
+    "Aaj ka lecture bahut IMPORTANT hai,
+     kyunki aaj hum computer ko CONTROL karna
+     seekhne wale hain."
+
+    "Sirf loop chalana hi programming nahi hoti,
+     loop ko rokna, skip karna, direction dena
+     bhi aana chahiye."
+
+    ============================================================
+    */
+
+
+    /*
+    ============================================================
+    2️⃣ WHILE LOOP – RECAP
+    ============================================================
+
+    "Jab tak condition true hai,
+     tab tak kaam chalao."
+
+    ============================================================
+    */
+
+    int i = 1;
+    while (i <= 5)
+    {
+        cout << i << " ";
+        i++;
+    }
+    cout << endl;
+
+
+    /*
+    ============================================================
+    3️⃣ BREAK – LOOP KO ZABARDASTI ROKNA
+    ============================================================
+
+    Sir bolte hain:
+
+    "Kabhi-kabhi condition true hoti hai,
+     phir bhi hume loop nahi chalana."
+
+    "Yahin pe BREAK ka use hota hai."
+
+    ============================================================
+    */
+
+    i = 1;
+    while (i <= 10)
+    {
+        if (i == 6)
+        {
+            break;   // loop yahin khatam
+        }
+        cout << i << " ";
+        i++;
+    }
+    cout << endl;
+
+    /*
+    Dry Run:
+    i = 1 → print
+    i = 2 → print
+    ...
+    i = 6 → break → loop exit
+    */
+
+
+    /*
+    ============================================================
+    4️⃣ CONTINUE – EK ITERATION SKIP KARNA
+    ============================================================
+
+    Sir bolte hain:
+
+    "BREAK matlab poora loop band."
+
+    "CONTINUE matlab:
+     is baar ka kaam chhod do,
+     agla round chalao."
+
+    ============================================================
+    */
+
+    i = 1;
+    while (i <= 5)
+    {
+        if (i == 3)
+        {
+            i++;
+            continue;   // 3 skip
+        }
+        cout << i << " ";
+        i++;
+    }
+    cout << endl;
+
+    /*
+    Output:
+    1 2 4 5
+    */
+
+
+    /*
+    ============================================================
+    5️⃣ BREAK vs CONTINUE (CORE DIFFERENCE)
+    ============================================================
+
+    BREAK:
+    ✔ Loop se bahar nikal deta hai
+
+    CONTINUE:
+    ✔ Sirf current iteration skip karta hai
+
+    ============================================================
+    */
+
+
+    /*
+    ============================================================
+    6️⃣ DO-WHILE LOOP – RECAP
+    ============================================================
+
+    "DO-WHILE kam se kam ek baar chalta hi chalta hai."
+
+    ============================================================
+    */
+
+    int j = 1;
+    do
+    {
+        cout << j << " ";
+        j++;
+    }
+    while (j <= 5);
+    cout << endl;
+
+
+    /*
+    ============================================================
+    7️⃣ REAL USE OF BREAK IN DO-WHILE
+    ============================================================
+    */
+
+    j = 1;
+    do
+    {
+        if (j == 4)
+            break;
+
+        cout << j << " ";
+        j++;
+    }
+    while (j <= 10);
+    cout << endl;
+
+
+    /*
+    ============================================================
+    8️⃣ SWITCH CASE – WHY IT EXISTS
+    ============================================================
+
+    Sir bolte hain:
+
+    "Agar sirf == wali checking hai,
+     aur values fixed hain,
+     to IF-ELSE likhna bekaar hai."
+
+    "SWITCH zyada clean hota hai."
+
+    ============================================================
+    */
+
+
+    /*
+    ============================================================
+    9️⃣ SWITCH SYNTAX
+    ============================================================
+
+    switch(expression)
+    {
+        case value1:
+            code;
+            break;
+
+        case value2:
+            code;
+            break;
+
+        default:
+            code;
+    }
+
+    ============================================================
+    */
+
+
+    /*
+    ============================================================
+    🔟 SWITCH – PRACTICAL EXAMPLE
+    ============================================================
+    */
+
+    int day = 3;
+
+    switch (day)
+    {
+        case 1:
+            cout << "Monday" << endl;
+            break;
+
+        case 2:
+            cout << "Tuesday" << endl;
+            break;
+
+        case 3:
+            cout << "Wednesday" << endl;
+            break;
+
+        default:
+            cout << "Invalid day" << endl;
+    }
+
+
+    /*
+    ============================================================
+    1️⃣1️⃣ WHY BREAK IS MUST IN SWITCH
+    ============================================================
+
+    Agar break nahi lagaya:
+
+    switch(1)
+    {
+        case 1:
+            cout << "One";
+        case 2:
+            cout << "Two";
+    }
+
+    Output:
+    OneTwo  ❌
+
+    Isi ko FALL THROUGH bolte hain.
+
+    ============================================================
+    */
+
+
+    /*
+    ============================================================
+    1️⃣2️⃣ BREAK INSIDE SWITCH ≠ BREAK INSIDE LOOP
+    ============================================================
+
+    switch ke andar break:
+    ✔ sirf switch se bahar
+
+    loop ke andar break:
+    ✔ poore loop se bahar
+
+    ============================================================
+    */
+
+
+    /*
+    ============================================================
+    1️⃣3️⃣ CONTINUE CANNOT BE USED IN SWITCH (ALONE)
+    ============================================================
+
+    CONTINUE sirf LOOP ke liye hota hai.
+    SWITCH me direct CONTINUE allowed nahi.
+
+    ============================================================
+    */
+
+
+    /*
+    ============================================================
+    1️⃣4️⃣ FINAL SIR MOTIVATION
+    ============================================================
+
+    "Programming ka matlab sirf likhna nahi,
+     control karna hota hai."
+
+    "WHILE chalana aana chahiye,
+     BREAK se rokna,
+     CONTINUE se skip karna,
+     SWITCH se clean decision lena."
+
+    "Next lecture:
+     loop + switch based QUESTIONS."
+
+    "Jai Hind 🇮🇳 Jai Bharat 🇮🇳"
+
+    ============================================================
+    */
+
+    return 0;
+}
+
+/*
+====================================================================
+📌 END OF FULL LECTURE
+Control Flow Statements in C++
+====================================================================
+*/
