@@ -1,0 +1,381 @@
+/*
+====================================================================
+📘 Week 3 – Functions Based Problem Solving in C++
+Style: Classroom Teaching (Teacher → Student)
+Language: English (Teacher Explanation Style)
+Code Language: C++
+Focus: Thinking + Functions + Problem Solving
+Audience: Beginners → DSA Ready
+====================================================================
+
+⚠️ These notes are a DIRECT reconstruction of the lecture.
+⚠️ Teaching flow, pauses, and reasoning are preserved.
+⚠️ No shortcut logic, no over-optimization.
+⚠️ Written as ONE single file for long-term GitHub revision.
+
+====================================================================
+
+
+------------------------------------------------------------
+0️⃣ Opening of the Lecture
+------------------------------------------------------------
+
+“Hello Code Army, how are you all?”
+
+Teacher starts with energy and motivation.
+
+🎉 Today our **three weeks are completed**.
+If you are still consistent till now — **congratulations** 👏
+
+Teacher reassures:
+• You don’t need to rush
+• Understanding matters more than speed
+
+Today’s lecture focus:
+
+• Solve problems using FUNCTIONS
+• Solve SAME problem using LOGIC
+• Understand WHY functions exist
+
+Teacher clearly says:
+“These questions are very important for interviews.”
+
+So without delay — let’s begin.
+
+
+------------------------------------------------------------
+1️⃣ Question 1 – Convert Lowercase Letter to Uppercase
+------------------------------------------------------------
+
+🔹 Problem Statement
+
+You are given a single character as input.
+
+• Input will be a lowercase letter (a to z)
+• You must print its corresponding uppercase letter
+
+Examples:
+
+Input   Output
+a       A
+b       B
+c       C
+t       T
+
+
+------------------------------------------------------------
+2️⃣ Thought Process (VERY IMPORTANT)
+------------------------------------------------------------
+
+Teacher asks the class:
+
+“If I give you character 'a', how will you convert it to 'A'?”
+
+Most students answer:
+• if-else
+• switch case
+• hardcoded mapping
+
+Teacher immediately stops them ❌
+
+“This is NOT scalable.”
+
+Imagine:
+• 26 letters
+• Then symbols
+• Then multiple conversions
+
+We need **LOGIC**, not hardcoding.
+
+
+------------------------------------------------------------
+ASCII Logic (CORE IDEA)
+------------------------------------------------------------
+
+Teacher introduces ASCII thinking.
+
+Facts:
+• ASCII of 'a' = 97
+• ASCII of 'A' = 65
+• Difference = 32
+
+But teacher says:
+“Don’t remember numbers. Remember relationships.”
+
+Correct formula:
+
+Uppercase = (lowercase - 'a') + 'A'
+
+Why does this work?
+
+'a' - 'a' = 0
+'b' - 'a' = 1
+'c' - 'a' = 2
+
+Adding 'A' shifts it to uppercase.
+
+This logic works for ALL letters.
+
+
+------------------------------------------------------------
+3️⃣ Why Use a Function Here?
+------------------------------------------------------------
+
+Teacher asks:
+“Can we write this logic inside main?”
+
+Yes — but ❌ not recommended.
+
+Why FUNCTION?
+
+• Logic written ONCE
+• Reusable
+• Clean code
+• Readable
+• Easy to debug
+• Interview-friendly
+
+This is exactly WHY functions exist.
+
+
+------------------------------------------------------------
+4️⃣ Code – Lowercase to Uppercase Using Function
+------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+// Function to convert lowercase to uppercase
+char convertToUpper(char ch)
+{
+    char result = (ch - 'a') + 'A';
+    return result;
+}
+
+int main()
+{
+    char ch;
+    cin >> ch;
+
+    char answer = convertToUpper(ch);
+    cout << answer;
+
+    return 0;
+}
+
+
+------------------------------------------------------------
+5️⃣ Dry Run Example
+------------------------------------------------------------
+
+Input:
+h
+
+Step-by-step:
+
+'h' - 'a' = 7
+'A' + 7 = 'H'
+
+Output:
+H
+
+
+------------------------------------------------------------
+6️⃣ Important Clarification – main() is ALSO a Function
+------------------------------------------------------------
+
+Teacher clears confusion:
+
+Yes,
+main() is also a function.
+
+int main()
+
+• It returns int
+• return 0 → successful execution
+
+Modern compilers allow skipping:
+return 0;
+
+But internally:
+return 0 still happens.
+
+
+====================================================================
+🔢 Question 2 – Armstrong Number (Using Functions)
+====================================================================
+
+
+------------------------------------------------------------
+7️⃣ What is an Armstrong Number?
+------------------------------------------------------------
+
+Definition:
+
+A number is Armstrong if:
+
+Sum of each digit raised to the power of total digits
+== original number
+
+Example 1:
+153
+
+Digits = 3
+
+1³ + 5³ + 3³
+= 1 + 125 + 27
+= 153 ✅
+
+Example 2:
+23
+
+Digits = 2
+
+2² + 3² = 4 + 9 = 13 ❌
+
+
+------------------------------------------------------------
+8️⃣ Breaking the Problem (Engineer Mindset)
+------------------------------------------------------------
+
+Teacher emphasizes:
+
+“Never solve big problems in one shot.”
+
+Break it into TASKS.
+
+Task 1:
+• Count number of digits
+
+Task 2:
+• Check Armstrong condition
+
+Each task = one function
+
+This is called:
+➡️ Problem Decomposition
+
+
+------------------------------------------------------------
+9️⃣ Function 1 – Count Digits
+------------------------------------------------------------
+
+Logic:
+• Divide number by 10 repeatedly
+• Count until number becomes 0
+
+int countDigits(int n)
+{
+    int count = 0;
+
+    while (n > 0)
+    {
+        count++;
+        n /= 10;
+    }
+
+    return count;
+}
+
+
+------------------------------------------------------------
+🔟 Function 2 – Armstrong Check
+------------------------------------------------------------
+
+Logic:
+• Extract digits using % 10
+• Raise digit to power = number of digits
+• Add them
+• Compare with original number
+
+We use inbuilt pow() function.
+
+#include <cmath>
+
+bool isArmstrong(int number, int digits)
+{
+    int original = number;
+    int sum = 0;
+
+    while (number > 0)
+    {
+        int digit = number % 10;
+        sum += pow(digit, digits);
+        number /= 10;
+    }
+
+    return sum == original;
+}
+
+
+------------------------------------------------------------
+1️⃣1️⃣ Main Program (Connecting Functions)
+------------------------------------------------------------
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    int digits = countDigits(n);
+
+    if (isArmstrong(n, digits))
+        cout << 1;
+    else
+        cout << 0;
+
+    return 0;
+}
+
+
+------------------------------------------------------------
+1️⃣2️⃣ Dry Run – Input: 153
+------------------------------------------------------------
+
+countDigits(153)
+→ returns 3
+
+isArmstrong(153, 3)
+
+1³ + 5³ + 3³ = 153
+
+Condition true
+
+Output:
+1
+
+
+------------------------------------------------------------
+🔚 Final Thoughts (Teacher Ending)
+------------------------------------------------------------
+
+Today you learned:
+
+• Why functions exist
+• How to decompose problems
+• Reusability of logic
+• Clean thinking
+• Math + logic + code combination
+
+Teacher reassures:
+
+“If something didn’t click instantly — that’s normal.”
+
+You started at Day 0.
+Now you are at **Week 3**.
+Progress IS happening.
+
+📌 Next week:
+➡️ DSA officially starts
+
+Until then:
+• Revise
+• Practice
+• Stay consistent
+
+“Jai Hind 🇮🇳”
+
+====================================================================
+END OF WEEK 3 LECTURE NOTES
+====================================================================
+*/
