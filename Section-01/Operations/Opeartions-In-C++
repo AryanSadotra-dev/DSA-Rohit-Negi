@@ -1,15 +1,17 @@
 /*
 ====================================================================
 📘 LECTURE NOTES
-OPERATORS IN C++
-(Arithmetic, Unary, Comparison, Logical, Bitwise, Assignment)
-180 Days Coding Challenge – Day 12
+Topic  : OPERATORS IN C++
+Day    : 12 (180 Days Coding Challenge)
+Style  : Full Classroom Reconstruction (Hinglish)
+Format : Single GitHub-Ready File
+====================================================================
 
-⚠️ These notes are a DIRECT classroom reconstruction
-⚠️ Hinglish language is intentional (teacher style)
-⚠️ Nothing is skipped
-⚠️ Repetition is intentional (sir style)
-⚠️ Written as ONE GitHub-ready file
+"Hello good morning kaise ho aap sab log?"
+
+"Aaj ka topic bahut IMPORTANT hai,
+ kyunki programming ka control OPERATORS se aata hai."
+
 ====================================================================
 */
 
@@ -20,336 +22,206 @@ int main()
 {
     /*
     ============================================================
-    1️⃣ OPENING – CLASSROOM START
+    1️⃣ WHAT IS AN OPERATOR?
     ============================================================
 
-    "Kaise hain aap sab log?"
+    Sir:
+    "Operator wo hota hai jo OPERATION karwata hai."
 
-    "Aaj hum ek bahut IMPORTANT topic discuss
-     karne wale hain – OPERATORS."
-
-    "12th day aa chuka hai challenge ka,
-     aur aap log bahut ache se step-by-step
-     aage badh rahe ho."
-
-    "Ye topic aapne 10th, 11th, 12th me
-     padha hoga…"
-
-    "Agar padha hota to aaj idhar coding
-     kar rahe hote 😄"
+    Example:
+    2 + 3 → + is operator
+    a = 10 → = is operator
 
     ============================================================
     */
-
 
     /*
     ============================================================
-    2️⃣ WHAT IS AN OPERATOR?
+    2️⃣ TYPES OF OPERATORS (BIG PICTURE)
     ============================================================
 
-    Sir explains:
-
-    "Operator ka kaam hota hai OPERATION karna."
-
-    Example:
-    +   → addition
-    -   → subtraction
-    *   → multiplication
-    /   → division
-
-    "Operator khud kuch nahi karta,
-     operands pe kaam karta hai."
+    1. Arithmetic
+    2. Relational (Comparison)
+    3. Logical
+    4. Assignment
+    5. Unary
+    6. Bitwise
+    7. Ternary
 
     ============================================================
     */
-
 
     /*
     ============================================================
     3️⃣ ARITHMETIC OPERATORS
     ============================================================
-
     +  -  *  /  %
-
-    Example:
-    6 + 2 = 8
-    6 - 2 = 4
-    6 * 2 = 12
-    6 / 2 = 3
-    7 % 2 = 1
-
     ============================================================
     */
 
-    int a = 13;
-    int b = 2;
+    int a = 13, b = 2;
+    cout << a + b << endl;   // 15
+    cout << a - b << endl;   // 11
+    cout << a * b << endl;   // 26
+    cout << a / b << endl;   // 6 (integer division)
+    cout << a % b << endl;   // 1
 
-    cout << "13 / 2 = " << (a / b) << endl;   // 6
-    cout << "13 % 2 = " << (a % b) << endl;   // 1
+    /*
+    Sir:
+    "Int / Int → Int"
+    "Float involved → Float output"
+    */
+
+    cout << 13.0 / 2 << endl;   // 6.5
 
 
     /*
     ============================================================
-    4️⃣ TYPE RULE IN DIVISION
+    4️⃣ UNARY OPERATORS
     ============================================================
-
-    Sir says:
-
-    "Rule yaad rakho."
-
-    👉 Agar DONO operands int hain →
-       answer int hoga
-
-    👉 Agar EK bhi float/double hai →
-       answer float/double hoga
-
-    ============================================================
-    */
-
-    cout << "13.0 / 2 = " << (13.0 / 2) << endl;   // 6.5
-    cout << "13 / 2.0 = " << (13 / 2.0) << endl;   // 6.5
-
-
-    /*
-    ============================================================
-    5️⃣ OPERATOR PRECEDENCE & ASSOCIATIVITY
-    ============================================================
-
-    Precedence (high → low):
-
-    *  /  %
-    +  -
-
-    Associativity:
-    Same precedence → Left to Right
-
-    Example:
-    2 * 3 + 4 = 10
-    3 + 4 - 6 = 1
-
-    ============================================================
-    */
-
-    cout << "2 * 3 + 4 = " << (2 * 3 + 4) << endl;
-    cout << "3 + 4 - 6 = " << (3 + 4 - 6) << endl;
-
-
-    /*
-    ============================================================
-    6️⃣ UNARY OPERATORS (++ , --)
-    ============================================================
-
-    ++a  → Pre-increment
-    a++  → Post-increment
-
-    Sir explains:
-
-    "Post me pehle kaam hota hai,
-     baad me value badhti hai."
-
-    "Pre me pehle value badhti hai,
-     baad me kaam hota hai."
-
+    ++  --
     ============================================================
     */
 
     int x = 10;
 
-    cout << "Post Increment: " << x++ << endl; // 10
-    cout << "After Post Increment: " << x << endl; // 11
+    cout << x++ << endl; // Post-increment → prints 10, x=11
+    cout << ++x << endl; // Pre-increment → x=12, prints 12
 
-    x = 10;
-    cout << "Pre Increment: " << ++x << endl; // 11
+    /*
+    Sir:
+    "POST: pehle kaam, baad me update"
+    "PRE : pehle update, baad me kaam"
+    */
 
 
     /*
     ============================================================
-    7️⃣ DECREMENT OPERATORS
+    5️⃣ RELATIONAL (COMPARISON) OPERATORS
     ============================================================
+    ==  !=  >  <  >=  <=
+    Output → 0 or 1
+    ============================================================
+    */
 
-    --a  → Pre-decrement
-    a--  → Post-decrement
+    cout << (5 > 3) << endl;     // 1
+    cout << (5 == 3) << endl;    // 0
+    cout << (5 != 3) << endl;    // 1
 
+
+    /*
+    ============================================================
+    6️⃣ LOGICAL OPERATORS
+    ============================================================
+    &&   ||   !
+    ============================================================
+    */
+
+    cout << (5 > 3 && 10 > 7) << endl; // 1
+    cout << (5 > 3 || 10 < 7) << endl; // 1
+    cout << !(5 > 3) << endl;          // 0
+
+    /*
+    Short-circuit:
+    AND → first false stops
+    OR  → first true stops
+    */
+
+
+    /*
+    ============================================================
+    7️⃣ ASSIGNMENT OPERATORS
+    ============================================================
+    =  +=  -=  *=  /=  %=
     ============================================================
     */
 
     int y = 10;
-    cout << "Post Decrement: " << y-- << endl; // 10
-    cout << "After Post Decrement: " << y << endl; // 9
+    y += 5;   // y = y + 5 → 15
+    y -= 3;   // 12
+    y *= 2;   // 24
+    y /= 4;   // 6
+
+    cout << y << endl;
 
 
     /*
     ============================================================
-    8️⃣ COMPARISON OPERATORS
+    8️⃣ BITWISE OPERATORS (MOST MISSED PART)
     ============================================================
-
-    ==   Equal to
-    !=   Not equal
-    >    Greater than
-    <    Less than
-    >=   Greater or equal
-    <=   Less or equal
-
-    IMPORTANT RULE:
-    👉 Output hamesha 0 ya 1 hota hai
-
+    &  |  ^  ~  <<  >>
     ============================================================
     */
 
-    int p = 4, q = 5;
-
-    cout << (p == q) << endl;   // 0
-    cout << (p != q) << endl;   // 1
-    cout << (p < q) << endl;    // 1
-    cout << (p > q) << endl;    // 0
-
-
     /*
-    ============================================================
-    9️⃣ COMPARISON IN IF-ELSE
-    ============================================================
+    Binary:
+    5 → 0101
+    3 → 0011
     */
 
-    if (p < q)
-        cout << "YES" << endl;
-    else
-        cout << "NO" << endl;
+    cout << (5 & 3) << endl; // 1
+    cout << (5 | 3) << endl; // 7
+    cout << (5 ^ 3) << endl; // 6
+    cout << (~5) << endl;    // -6
 
-
-    /*
-    ============================================================
-    🔟 LOGICAL OPERATORS
-    ============================================================
-
-    &&  → AND
-    ||  → OR
-    !   → NOT
-
-    AND:
-    true && true → true
-    else → false
-
-    OR:
-    true || false → true
-
-    NOT:
-    !true → false
-
-    ============================================================
-    */
-
-    int age = 25;
-
-    if (age > 18 && age < 60)
-        cout << "Eligible" << endl;
-    else
-        cout << "Not Eligible" << endl;
-
+    cout << (3 << 1) << endl; // 6 (multiply by 2)
+    cout << (6 >> 1) << endl; // 3 (divide by 2)
 
     /*
-    ============================================================
-    1️⃣1️⃣ SHORT-CIRCUIT BEHAVIOR
-    ============================================================
-
-    AND:
-    Agar pehla false → baaki check nahi
-
-    OR:
-    Agar pehla true → baaki check nahi
-
-    Computer lazy hota hai 😄
-    Jahan answer mil gaya, wahi ruk jata hai
-
-    ============================================================
+    Sir:
+    "<< = multiply by 2"
+    ">> = divide by 2"
+    "Negative behavior = compiler dependent"
     */
 
 
     /*
     ============================================================
-    1️⃣2️⃣ VOWEL / CONSONANT USING LOGICAL OR
+    9️⃣ TERNARY OPERATOR (?:) — COMPLETELY MISSING EARLIER
     ============================================================
     */
 
-    char ch = 'a';
-
-    if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
-        cout << "Vowel" << endl;
-    else
-        cout << "Consonant" << endl;
+    int age = 20;
+    (age >= 18) ? cout << "Adult\n" : cout << "Minor\n";
 
 
     /*
     ============================================================
-    1️⃣3️⃣ BITWISE OPERATORS
+    🔟 OPERATOR PRECEDENCE & ASSOCIATIVITY
     ============================================================
 
-    &   AND
-    |   OR
-    ^   XOR
-    ~   Complement
-    <<  Left shift
-    >>  Right shift
+    Highest → Lowest (simplified)
 
-    Work at BIT LEVEL
+    1. () 
+    2. ++ --
+    3. * / %
+    4. + -
+    5. < > <= >=
+    6. == !=
+    7. &&
+    8. ||
+    9. =
 
-    ============================================================
-    */
-
-    cout << "2 & 3 = " << (2 & 3) << endl; // 2
-    cout << "2 | 3 = " << (2 | 3) << endl; // 3
-    cout << "2 ^ 3 = " << (2 ^ 3) << endl; // 1
-
-
-    /*
-    ============================================================
-    1️⃣4️⃣ LEFT & RIGHT SHIFT
-    ============================================================
-
-    Left Shift → multiply by 2
-    Right Shift → divide by 2
+    Associativity:
+    Mostly Left → Right
+    Assignment = Right → Left
 
     ============================================================
     */
 
-    cout << "3 << 1 = " << (3 << 1) << endl; // 6
-    cout << "6 >> 1 = " << (6 >> 1) << endl; // 3
-
-
     /*
     ============================================================
-    1️⃣5️⃣ ASSIGNMENT OPERATORS
+    1️⃣1️⃣ FINAL SIR WORDS
     ============================================================
 
-    =   +=   -=   *=   /=   %=
+    "Operator yaad nahi karne,
+     samajhne hote hain."
 
-    a += 5 → a = a + 5
+    "Precedence computer ke liye rules hain,
+     tumhare liye logic."
 
-    ============================================================
-    */
-
-    int k = 10;
-    k += 5;
-    cout << k << endl; // 15
-
-    k -= 3;
-    cout << k << endl; // 12
-
-
-    /*
-    ============================================================
-    1️⃣6️⃣ FINAL SIR MESSAGE
-    ============================================================
-
-    "Operator ratne ki cheez nahi hai."
-
-    "Logic samajh aaya →
-     coding easy ho jaati hai."
-
-    "Precedence aur associativity
-     computer ko confuse hone se bachati hai."
-
-    "Next lecture me:
-     loops + questions."
+    "Next class:
+     Loops + Operator based questions."
 
     "Jai Hind 🇮🇳 Jai Bharat 🇮🇳"
 
@@ -358,9 +230,3 @@ int main()
 
     return 0;
 }
-
-/*
-====================================================================
-END OF LECTURE – OPERATORS IN C++
-====================================================================
-*/
