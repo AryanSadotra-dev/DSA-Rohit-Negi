@@ -1,0 +1,252 @@
+/*
+====================================================================
+📘 Lecture Notes (FULL REBUILD – NOTHING SKIPPED)
+Topic   : Decimal ↔ Binary Conversion
+Day     : 180 Days Coding Challenge
+Style   : Teacher Classroom Hinglish (Sir Dialogues + Board Logic)
+Format  : SINGLE GitHub-Ready File (Concept + Logic + Code)
+Lang    : C++ (as requested)
+====================================================================
+
+"Hello good morning Army, kaise hain aap sab log?"
+"Aaj ka topic bahut hi IMPORTANT hai – Decimal aur Binary conversion."
+
+Sir:
+"Is lecture me sirf formula ya math nahi, hum sochna seekhenge."
+"Math → Logic → Code, teenon clear hone chahiye."
+
+====================================================================
+*/
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+/*
+====================================================================
+1️⃣ NUMBER SYSTEM BASICS (Sir Board Explanation)
+====================================================================
+
+Decimal Number System:
+Base = 10
+Digits = 0 se 9
+
+Binary Number System:
+Base = 2
+Digits = sirf 0 aur 1
+
+Sir:
+"Computer ko sirf 0 aur 1 samajh aata hai."
+"Isliye hume decimal ko binary me convert karna padta hai."
+
+====================================================================
+*/
+
+
+/*
+====================================================================
+2️⃣ DECIMAL → BINARY (PURE THINKING FIRST)
+====================================================================
+
+Sir:
+"Binary nikalne ke liye ek hi kaam repeat hota hai."
+
+Steps:
+1. number % 2  → remainder (last binary digit)
+2. number / 2  → quotient (next number)
+3. Jab tak number > 0, repeat
+
+Example: number = 13
+
+13 % 2 = 1
+6  % 2 = 0
+3  % 2 = 1
+1  % 2 = 1
+
+Sir:
+"Remainders hamesha REVERSE order me aate hain."
+"Isliye hume unhe ulta jodna padta hai."
+
+Binary (reverse): 1101
+====================================================================
+*/
+
+int number;
+cout << "Enter decimal number: ";
+cin >> number;
+
+int remainder;
+int binaryAnswer = 0;   // final binary number
+int multiply = 1;       // 1, 10, 100, 1000 ...
+
+while (number > 0)
+{
+    remainder = number % 2;      // last bit
+    number = number / 2;         // quotient
+
+    // Reverse order fix:
+    // Pehle aaya bit → ones place
+    // Agla bit → tens place, etc.
+    binaryAnswer = remainder * multiply + binaryAnswer;
+    multiply = multiply * 10;
+}
+
+cout << "Binary = " << binaryAnswer << endl;
+
+
+/*
+====================================================================
+3️⃣ DECIMAL → BINARY (BITWISE VERSION – SIR TRICK)
+====================================================================
+
+Sir:
+"Computer ke level pe %2 aur /2 bhi bitwise se hota hai."
+
+Rules:
+number % 2  ==  number & 1
+number / 2  ==  number >> 1
+
+Sir:
+"Agar bitwise samajh gaye, to low-level coding strong ho jaegi."
+====================================================================
+*/
+
+int n;
+cout << "\nEnter decimal again (bitwise method): ";
+cin >> n;
+
+int bitBinary = 0;
+int place = 1;
+
+while (n)
+{
+    int bit = n & 1;              // last bit
+    bitBinary = bit * place + bitBinary;
+    place = place * 10;
+    n = n >> 1;                   // divide by 2
+}
+
+cout << "Binary (bitwise) = " << bitBinary << endl;
+
+
+/*
+====================================================================
+4️⃣ BINARY → DECIMAL (REVERSE PROCESS)
+====================================================================
+
+Sir:
+"Ab hum ulta karenge – Binary se Decimal."
+
+Logic:
+Har digit ko 2 ki power se multiply karo.
+
+Example: 1101
+
+= 1×2^0 + 0×2^1 + 1×2^2 + 1×2^3
+= 1 + 0 + 4 + 8
+= 13
+
+Sir:
+"Binary ka last digit sabse chhoti power hoti hai."
+====================================================================
+*/
+
+int binary;
+cout << "\nEnter binary number: ";
+cin >> binary;
+
+int digit;
+int decimalAnswer = 0;
+int power = 1;   // 2^0
+
+while (binary > 0)
+{
+    digit = binary % 10;     // last binary digit
+    binary = binary / 10;    // remove last digit
+
+    decimalAnswer = digit * power + decimalAnswer;
+    power = power * 2;       // next power of 2
+}
+
+cout << "Decimal = " << decimalAnswer << endl;
+
+
+/*
+====================================================================
+5️⃣ IMPORTANT WARNINGS (Sir ne class me bataya)
+====================================================================
+
+⚠️ Binary number int me store ho raha hai
+⚠️ int sirf 32-bit ka hota hai
+⚠️ Agar binary length > 31 bits hui → overflow
+⚠️ Isliye large binary ka output galat aa sakta hai
+
+Sir:
+"Ye galti code ki nahi, MEMORY LIMIT ki hoti hai."
+
+Solution (future lectures):
+✔ String use karenge
+✔ Arrays / vectors use karenge
+
+====================================================================
+*/
+
+
+/*
+====================================================================
+6️⃣ NEGATIVE NUMBERS KYUN SKIP KIYE?
+====================================================================
+
+Sir:
+"Negative binary simple nahi hota."
+"2’s complement use hota hai."
+
+Reason:
+✔ Sign bit
+✔ Complement + 1
+✔ Direct int logic fail ho jata hai
+
+Sir:
+"Strings aur bit-level understanding ke baad hi karenge."
+====================================================================
+*/
+
+
+/*
+====================================================================
+7️⃣ THINKING / HOMEWORK (VERY IMPORTANT)
+====================================================================
+
+Sir:
+"Socho aur analyse karo:"
+
+1. Large binary kyu overflow karta hai?
+2. -13 binary me kaise store hota hai?
+3. Left shift = multiply by 2 kyun?
+4. Right shift = divide by 2 kyun?
+
+"Ratta nahi, LOGIC build karo."
+====================================================================
+*/
+
+
+/*
+====================================================================
+8️⃣ FINAL SIR DIALOGUE
+====================================================================
+
+"Agar yahan tak aaye ho, to tum serious ho."
+"Consistency rakho, coding apne aap strong ho jaegi."
+
+Next Lecture:
+👉 Octal, Hexadecimal
+👉 Negative Numbers
+👉 2’s Complement
+
+Jai Hind 🇮🇳  Jai Bharat 🇮🇳
+====================================================================
+*/
+
+return 0;
+}
