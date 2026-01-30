@@ -5,35 +5,11 @@ Programming Foundations – Memory, Binary, ASCII, Data Types & First C++ Code
 (180 Days Coding Challenge – Day 3)
 (Teacher’s Full Classroom Teaching Style – Complete Reconstruction)
 ====================================================================
-
-⚠️ These notes are a DIRECT reconstruction of the lecture.
-⚠️ Hinglish language is intentional (teacher style).
-⚠️ Nothing is skipped.
-⚠️ Missing or unclear spoken parts are COMPLETED logically
-   using standard CS foundations (as the teacher intended).
-⚠️ Written as ONE GitHub-ready file for long-term revision.
-
-====================================================================
-
-
 ------------------------------------------------------------
 1. Opening Energy – Challenge Context
 ------------------------------------------------------------
-
-“Hello Coder Army, kaise hain aap sab log?”
-
-Teacher welcome karta hai aur directly tone set karta hai:
-
-• Ye **Day 3** hai **180 Days Coding Challenge** ka  
-• Bahut saare students actively participate kar rahe hain  
-• Journey **smooth** rahegi, rushed nahi  
-• Consistency > speed  
-
-Teacher thanks karta hai previous lecture ke response ke liye.
-
 Key message:
 “Relax hoke seekhenge. Darne ki zarurat nahi hai.”
-
 
 ------------------------------------------------------------
 2. Recap – What We Learned Earlier
@@ -268,24 +244,8 @@ iostream provide karta hai:
 
 Header file = feature provider.
 
-
 ------------------------------------------------------------
-16. Syntax Fear – Teacher Motivation
-------------------------------------------------------------
-
-Teacher bolta hai:
-
-“Syntax dekh ke ghabrana mat.”
-
-Analogy:
-• English seekhne me time lagta hai  
-• Programming bhi waise hi hai  
-
-14–15 din me comfort aa jata hai.
-
-
-------------------------------------------------------------
-17. Namespace std – Problem & Solution
+16. Namespace std – Problem & Solution
 ------------------------------------------------------------
 
 Without namespace:
@@ -299,7 +259,7 @@ cout << "Hello";
 
 
 ------------------------------------------------------------
-18. Why Namespace Exists
+17. Why Namespace Exists
 ------------------------------------------------------------
 
 Namespaces prevent:
@@ -310,7 +270,7 @@ std = container of standard names.
 
 
 ------------------------------------------------------------
-19. IDE Concept
+18. IDE Concept
 ------------------------------------------------------------
 
 IDE = Integrated Development Environment
@@ -327,7 +287,7 @@ IDE helps:
 
 
 ------------------------------------------------------------
-20. Creating First C++ File
+19. Creating First C++ File
 ------------------------------------------------------------
 
 Steps:
@@ -340,7 +300,7 @@ Steps:
 
 
 ------------------------------------------------------------
-21. Running First Program
+20. Running First Program
 ------------------------------------------------------------
 
 If no error:
@@ -350,7 +310,7 @@ Errors = learning tool, enemy nahi.
 
 
 ------------------------------------------------------------
-22. Insertion Operator (<<)
+21. Insertion Operator (<<)
 ------------------------------------------------------------
 
 << = Insertion Operator  
@@ -360,7 +320,7 @@ Multiple usage allowed.
 
 
 ------------------------------------------------------------
-23. New Line Handling
+22. New Line Handling
 ------------------------------------------------------------
 
 Two ways:
@@ -371,7 +331,7 @@ Dono next line pe le jaate hain.
 
 
 ------------------------------------------------------------
-24. Printing Text vs Expressions
+23. Printing Text vs Expressions
 ------------------------------------------------------------
 
 cout << 3 + 2;      // prints 5  
@@ -382,7 +342,7 @@ No quotes = evaluation
 
 
 ------------------------------------------------------------
-25. Variables – Human Language Analogy
+24. Variables – Human Language Analogy
 ------------------------------------------------------------
 
 Hum use karte hain:
@@ -394,7 +354,7 @@ Computer ko bhi types chahiye.
 
 
 ------------------------------------------------------------
-26. Integer Data Type (int)
+25. Integer Data Type (int)
 ------------------------------------------------------------
 
 int a = 10;
@@ -406,14 +366,13 @@ Meaning:
 
 
 ------------------------------------------------------------
-27. Why Fixed Size Memory Is Necessary
+26. Why Fixed Size Memory Is Necessary
 ------------------------------------------------------------
 
 Airplane seat analogy:
 • Seat fixed size ki hoti hai  
 
-Similarly:
-int = fixed bits
+Similarly: int = fixed bits
 
 Benefits:
 1️⃣ CPU knows kitna read karna hai  
@@ -421,7 +380,7 @@ Benefits:
 
 
 ------------------------------------------------------------
-28. Variable Naming Rules
+27. Variable Naming Rules
 ------------------------------------------------------------
 
 Allowed:
@@ -435,7 +394,7 @@ Not allowed:
 
 
 ------------------------------------------------------------
-29. Declaration vs Definition
+28. Declaration v/s Definition
 ------------------------------------------------------------
 
 Declaration:
@@ -449,7 +408,7 @@ int a = 10;
 
 
 ------------------------------------------------------------
-30. Arithmetic with Variables
+29. Arithmetic with Variables
 ------------------------------------------------------------
 
 int a = 10;
@@ -461,7 +420,7 @@ c = 30
 
 
 ------------------------------------------------------------
-31. Comments – Ignored by Compiler
+30. Comments – Ignored by Compiler
 ------------------------------------------------------------
 
 Comments compiler ignore karta hai.
@@ -472,7 +431,7 @@ Used for:
 
 
 ------------------------------------------------------------
-32. Character Data Type (char)
+31. Character Data Type (char)
 ------------------------------------------------------------
 
 char c = 'A';
@@ -485,7 +444,7 @@ Size:
 
 
 ------------------------------------------------------------
-33. Boolean Data Type (bool)
+32. Boolean Data Type (bool)
 ------------------------------------------------------------
 
 bool flag = true;
@@ -497,7 +456,7 @@ Internally numeric.
 
 
 ------------------------------------------------------------
-34. Floating Point Types
+33. Floating Point Types
 ------------------------------------------------------------
 
 • float  → less precision  
@@ -507,7 +466,7 @@ Large decimals → double preferred.
 
 
 ------------------------------------------------------------
-35. Why Not Always Use double?
+34. Why Not Always Use double?
 ------------------------------------------------------------
 
 Because:
@@ -519,7 +478,7 @@ Use smallest sufficient type.
 
 
 ------------------------------------------------------------
-36. Negative Numbers – Two’s Complement
+35. Negative Numbers – Two’s Complement
 ------------------------------------------------------------
 
 Problem:
@@ -535,7 +494,7 @@ Benefits:
 
 
 ------------------------------------------------------------
-37. Memory Efficiency Philosophy
+36. Memory Efficiency Philosophy
 ------------------------------------------------------------
 
 Good code:
@@ -545,7 +504,7 @@ Good code:
 
 
 ------------------------------------------------------------
-38. Online Compilers
+37. Online Compilers
 ------------------------------------------------------------
 
 Examples:
@@ -557,19 +516,7 @@ Helpful jab IDE available na ho.
 
 
 ------------------------------------------------------------
-39. Final Motivation
-------------------------------------------------------------
-
-Teacher maanta hai:
-“Lecture heavy tha.”
-
-But:
-• Foundation strong ho gayi  
-• Aage cheezein easy lagenge  
-
-
-------------------------------------------------------------
-40. Lecture Closure
+38. Lecture Closure
 ------------------------------------------------------------
 
 Advice:
