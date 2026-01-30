@@ -1,0 +1,474 @@
+/*
+====================================================================================
+📘 LECTURE NOTES
+TOPIC: TIME & SPACE COMPLEXITY (COMPLETE MASTER LECTURE)
+STYLE: Teacher Classroom Style | English | GitHub Ready | Single File
+====================================================================================
+
+⚠️ These notes are a DIRECT reconstruction of the lecture.
+⚠️ Logic, flow, examples, and thinking process are preserved.
+⚠️ No summarization. No skipping.
+⚠️ Focus on interview + coding round understanding.
+
+====================================================================================
+1️⃣ INTRODUCTION: WHY TIME & SPACE COMPLEXITY?
+====================================================================================
+
+Hello Coder Army, how are you all?
+
+Today we are going to study one of the MOST IMPORTANT topics in DSA:
+👉 TIME and SPACE COMPLEXITY
+
+This topic is asked in:
+- Every interview round
+- Every coding round
+- Every serious DSA discussion
+
+Once you truly understand this topic,
+👉 you will NEVER need to revise it again.
+
+We will:
+- Understand the concept deeply
+- Practice many questions
+- Build intuition instead of memorization
+
+====================================================================================
+2️⃣ WHAT IS TIME COMPLEXITY? (INTUITIVE START)
+====================================================================================
+
+Question:
+What do you think time complexity is?
+
+Common answer:
+"Total time taken by an algorithm"
+
+✔️ That is partially correct.
+
+But let’s step back and ask:
+❓ WHY do we even need time complexity?
+
+------------------------------------------------------------------------------------
+2.1 MULTIPLE SOLUTIONS PROBLEM
+------------------------------------------------------------------------------------
+
+For one problem, there can be multiple algorithms:
+
+- A1
+- A2
+- A3
+- A4
+
+Question:
+Which algorithm should we choose?
+
+Answer:
+👉 The one that takes LESS TIME.
+
+But here comes the real problem…
+
+====================================================================================
+3️⃣ WHY WE CANNOT MEASURE TIME IN SECONDS
+====================================================================================
+
+Suppose we measure time in seconds.
+
+Example problem:
+Sum of first N numbers.
+
+Algorithm:
+for (i = 1 to n)
+    sum += i;
+
+Now run this algorithm on:
+- Old computer
+- New computer (latest MacBook)
+
+For N = 1000:
+- Old computer → 2 seconds
+- New computer → 1 second
+
+For N = 100000:
+- Old computer → 200 seconds
+- New computer → 100 seconds
+
+Now answer this:
+❓ What is the time of this algorithm?
+
+- 1 second?
+- 2 seconds?
+- 100 seconds?
+- 200 seconds?
+
+👉 MULTIPLE ANSWERS ❌
+
+So we conclude:
+❌ Time in seconds is NOT reliable.
+
+Reasons:
+- Hardware difference
+- Background processes
+- OS scheduling
+- CPU, RAM, load, etc.
+
+Even on SAME machine:
+- Same input may give 190 sec or 210 sec
+
+👉 So seconds-based comparison FAILS.
+
+====================================================================================
+4️⃣ THE REAL DEPENDENCY: INPUT SIZE (N)
+====================================================================================
+
+Key observation:
+As input size (N) increases,
+execution time also increases.
+
+So time depends on:
+👉 SIZE OF INPUT (N)
+
+Example:
+- N = 1000 → small time
+- N = 100000 → large time
+- N = 1 crore → very large time
+
+Hence:
+
+📌 Time Complexity =
+Total time taken by an algorithm
+AS A FUNCTION OF INPUT SIZE (N)
+
+------------------------------------------------------------------------------------
+Formal Definition:
+------------------------------------------------------------------------------------
+
+Time Complexity is the total time taken by an algorithm
+to run as a function of the length of the input.
+
+====================================================================================
+5️⃣ GRAPH INTUITION (OLD vs NEW COMPUTER)
+====================================================================================
+
+Plot:
+X-axis → Input size (N)
+Y-axis → Time
+
+Old Computer:
+- N = 10 → 10 sec
+- N = 20 → 20 sec
+- N = 50 → 50 sec
+→ Straight line (Linear)
+
+New Computer:
+- N = 10 → 5 sec
+- N = 20 → 10 sec
+- N = 50 → 25 sec
+→ Also straight line (Linear)
+
+Important observation:
+- Slopes are different
+- Pattern is SAME (Linear growth)
+
+So we DO NOT care about:
+- Constants (½, 2, 5, etc.)
+
+We ONLY care about:
+👉 GROWTH PATTERN
+
+====================================================================================
+6️⃣ GROWTH CATEGORIES
+====================================================================================
+
+Common growth patterns:
+- Constant → O(1)
+- Linear → O(n)
+- Quadratic → O(n²)
+- Cubic → O(n³)
+- Logarithmic → O(log n)
+- Exponential → O(2ⁿ)
+- Factorial → O(n!)
+
+Algorithms with same growth pattern
+belong to SAME category.
+
+====================================================================================
+7️⃣ BEST, WORST & AVERAGE CASE
+====================================================================================
+
+Three cases for an algorithm:
+
+1️⃣ Best Case → Ω (Omega)
+2️⃣ Worst Case → O (Big-O)
+3️⃣ Average Case → Θ (Theta)
+
+------------------------------------------------------------------------------------
+Why WORST CASE is most important?
+------------------------------------------------------------------------------------
+
+Real-life example:
+CBSE website crashes on result day.
+
+Why?
+Because it was NOT designed for worst case
+(1 lakh students accessing together).
+
+👉 In real systems, we prepare for WORST CASE.
+
+So in interviews and design:
+✔️ We prioritize WORST CASE.
+
+====================================================================================
+8️⃣ BIG-O, OMEGA & THETA
+====================================================================================
+
+O (Big-O):
+- Worst case
+- Maximum time taken
+
+Ω (Omega):
+- Best case
+- Minimum time taken
+
+Θ (Theta):
+- Average / Exact behavior
+
+====================================================================================
+9️⃣ RULES FOR CALCULATING TIME COMPLEXITY
+====================================================================================
+
+RULE 1️⃣: Ignore constants
+- O(3n + 5) → O(n)
+
+RULE 2️⃣: Take the dominant term
+- O(n² + n + 10) → O(n²)
+
+Why?
+Because for large N:
+- Smaller terms become negligible
+
+====================================================================================
+🔟 STEP COUNT METHOD (CORE TECHNIQUE)
+====================================================================================
+
+Example:
+for (i = 1; i <= n; i++)
+    print("Chamaka");
+
+Steps per iteration:
+- Comparison
+- Print
+- Increment
+
+Runs N times → O(n)
+
+------------------------------------------------------------------------------------
+Key idea:
+Count how many TIMES the main work runs.
+
+====================================================================================
+1️⃣1️⃣ LINEAR SEARCH ANALYSIS
+====================================================================================
+
+Array: [6, 2, 4, 8, 9]
+
+Search 6:
+- Found at first index
+- Best case → Ω(1)
+
+Search 9:
+- Found at last index
+- Worst case → O(n)
+
+Average case:
+- (1 + 2 + ... + n) / n = n/2
+- Θ(n)
+
+====================================================================================
+1️⃣2️⃣ CONSTANT TIME EXAMPLES
+====================================================================================
+
+Example:
+print first 10 numbers regardless of N.
+
+Time Complexity:
+O(1)
+
+Even if N = 1 million,
+still prints 10 numbers only.
+
+====================================================================================
+1️⃣3️⃣ MATHEMATICAL FORMULA EXAMPLE
+====================================================================================
+
+Sum of N numbers using formula:
+n * (n + 1) / 2
+
+No loop.
+One calculation.
+
+Time Complexity:
+O(1)
+
+====================================================================================
+1️⃣4️⃣ NESTED LOOPS (IMPORTANT)
+====================================================================================
+
+Case 1:
+for i = 1 to n
+  for j = 1 to n
+    print
+
+→ n * n = n²
+→ O(n²)
+
+------------------------------------------------------------------------------------
+Case 2:
+for i = 1 to n
+  for j = 1 to i
+    print
+
+Total prints:
+1 + 2 + 3 + ... + n
+= n(n+1)/2
+→ O(n²)
+
+------------------------------------------------------------------------------------
+Case 3:
+for i = 1 to n
+  for j = 1 to i²
+    print
+
+Total:
+1² + 2² + ... + n²
+= n(n+1)(2n+1)/6
+→ O(n³)
+
+====================================================================================
+1️⃣5️⃣ LOGARITHMIC LOOPS
+====================================================================================
+
+Example:
+i = 1
+while (i <= n)
+  i = i * 2
+
+Values:
+1 → 2 → 4 → 8 → ... → n
+
+How many steps?
+log₂(n)
+
+Time Complexity:
+O(log n)
+
+Same applies when:
+- Dividing by 2
+- Multiplying by 3 → log₃(n)
+
+====================================================================================
+1️⃣6️⃣ THREE NESTED LOOPS (DEPENDENCY CHECK)
+====================================================================================
+
+If inner loops DO NOT depend on outer:
+Multiply their counts.
+
+If inner loop depends on outer:
+You must SUM the steps.
+
+Dependency check is CRITICAL.
+
+====================================================================================
+1️⃣7️⃣ HARMONIC SERIES CASE
+====================================================================================
+
+Example:
+for i = 1 to n
+  for j = 1 to n/i
+    print
+
+Total:
+n(1 + 1/2 + 1/3 + ... + 1/n)
+
+This is Harmonic Series.
+
+Time Complexity:
+O(n log n)
+
+====================================================================================
+1️⃣8️⃣ SPACE COMPLEXITY
+====================================================================================
+
+Space complexity also depends on INPUT SIZE.
+
+Definition:
+Space used by algorithm as a function of input size.
+
+Two types:
+1️⃣ Auxiliary Space
+2️⃣ Total Space
+
+------------------------------------------------------------------------------------
+Auxiliary Space:
+Extra memory used (excluding input)
+
+------------------------------------------------------------------------------------
+Total Space:
+Input space + Auxiliary space
+
+====================================================================================
+1️⃣9️⃣ SPACE EXAMPLES
+====================================================================================
+
+Example 1:
+int a, b, c;
+
+Auxiliary space:
+O(1)
+
+------------------------------------------------------------------------------------
+Example 2:
+Given array of size n
+Create another array of size n
+
+Auxiliary space:
+O(n)
+
+Total space:
+O(n) + O(n) = O(n)
+
+====================================================================================
+2️⃣0️⃣ ORDER COMPARISON (IMPORTANT)
+====================================================================================
+
+Worst → Best:
+
+O(n!)
+O(2ⁿ)
+O(n³)
+O(n²)
+O(n log n)
+O(n)
+O(log n)
+O(1)
+
+To compare:
+- Plug small values
+- Observe growth
+- Larger growth dominates in long run
+
+====================================================================================
+2️⃣1️⃣ FINAL TAKEAWAYS
+====================================================================================
+
+✔️ Never measure time in seconds
+✔️ Always relate to input size
+✔️ Ignore constants
+✔️ Focus on dominant term
+✔️ Prepare for worst case
+✔️ Learn to detect patterns
+✔️ Space matters too
+
+====================================================================================
+END OF LECTURE
+JAI HIND 🇮🇳 | JAI BHARAT 🇮🇳
+====================================================================================
+*/
