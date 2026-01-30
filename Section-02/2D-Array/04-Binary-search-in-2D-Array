@@ -1,0 +1,330 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES
+TOPIC: BINARY SEARCH IN 2D ARRAYS
+(Complete Classroom Reconstruction – English – GitHub Ready – Single File)
+===============================================================================
+
+⚠️ This is a DIRECT reconstruction of the lecture.
+⚠️ Nothing is summarized or skipped.
+⚠️ Thinking process is preserved exactly as taught.
+⚠️ Language converted from Hinglish → Clear English.
+⚠️ Code language: C++.
+
+===============================================================================
+0️⃣ INTRODUCTION
+===============================================================================
+
+Hello Code Army, how are you all?
+I hope everyone is doing well.
+
+Today we are going to solve TWO very important problems:
+
+1️⃣ Binary Search in a 2D Matrix (fully sorted matrix)
+2️⃣ Search in a Row-wise & Column-wise Sorted Matrix
+
+These problems look similar, but the APPROACH is COMPLETELY DIFFERENT.
+
+===============================================================================
+1️⃣ WHEN CAN WE APPLY BINARY SEARCH?
+===============================================================================
+
+Binary Search can ONLY be applied when:
+✔ Data is sorted (increasing or decreasing)
+
+If data is unsorted → Binary Search ❌
+
+So first question in every problem:
+👉 Is the data sorted or not?
+
+===============================================================================
+2️⃣ PROBLEM 1: SEARCH IN A FULLY SORTED 2D MATRIX
+===============================================================================
+
+You are given a 2D matrix:
+- Rows = n
+- Columns = m
+- Entire matrix is sorted in increasing order
+
+Example (4 × 5):
+
+2   6   10  14  18
+20  24  27  29  38
+47  52  78  93  102
+108 111 200 218 320
+
+Target = 52
+
+Property:
+✔ Each row is sorted
+✔ Last element of previous row < first element of next row
+✔ Entire matrix behaves like ONE SORTED ARRAY
+
+===============================================================================
+3️⃣ BRUTE FORCE APPROACH
+===============================================================================
+
+Idea:
+- Traverse every element
+- Compare with target
+
+Code logic:
+for each row
+  for each column
+    if element == target → return true
+
+Time Complexity: O(n × m)
+Space Complexity: O(1)
+
+This works, but it is SLOW.
+
+===============================================================================
+4️⃣ BETTER APPROACH (ROW SELECTION + BINARY SEARCH)
+===============================================================================
+
+Observation:
+Each row is sorted.
+
+Idea:
+1. Find the row where target CAN exist
+2. Apply Binary Search on that row
+
+How to check row?
+Target must satisfy:
+matrix[row][0] <= target <= matrix[row][m-1]
+
+Once row is found:
+✔ Apply Binary Search on columns
+
+Worst Case:
+- Row scanning → O(n)
+- Binary search → O(log m)
+
+Time Complexity: O(n + log m)
+Space Complexity: O(1)
+
+Better, but still NOT optimal.
+
+===============================================================================
+5️⃣ OPTIMAL APPROACH (MOST IMPORTANT)
+===============================================================================
+
+Key Observation:
+The entire matrix is SORTED as if it is a 1D array.
+
+Total elements = n × m
+
+We will:
+✔ APPLY BINARY SEARCH DIRECTLY
+✔ WITHOUT creating a 1D array
+
+We only SIMULATE a 1D array.
+
+===============================================================================
+6️⃣ 2D → 1D MAPPING (ROW MAJOR ORDER)
+===============================================================================
+
+For any index `mid` in imaginary 1D array:
+
+rowIndex = mid / m
+colIndex = mid % m
+
+This formula comes from ROW MAJOR ORDER.
+
+===============================================================================
+7️⃣ BINARY SEARCH LOGIC
+===============================================================================
+
+start = 0
+end = (n × m) - 1
+
+While start <= end:
+- mid = start + (end - start) / 2
+- Convert mid → (row, col)
+- Compare matrix[row][col] with target
+
+If equal → FOUND
+If smaller → search right
+If larger → search left
+
+===============================================================================
+8️⃣ FINAL CODE (PROBLEM 1)
+===============================================================================
+
+bool searchMatrix(vector<vector<int>>& matrix, int target)
+{
+    int n = matrix.size();
+    int m = matrix[0].size();
+
+    int start = 0;
+    int end = (n * m) - 1;
+
+    while (start <= end)
+    {
+        int mid = start + (end - start) / 2;
+
+        int row = mid / m;
+        int col = mid % m;
+
+        if (matrix[row][col] == target)
+            return true;
+        else if (matrix[row][col] < target)
+            start = mid + 1;
+        else
+            end = mid - 1;
+    }
+    return false;
+}
+
+Time Complexity: O(log (n × m))
+Space Complexity: O(1)
+
+===============================================================================
+9️⃣ PROBLEM 2: SEARCH IN ROW-WISE & COLUMN-WISE SORTED MATRIX
+===============================================================================
+
+Matrix properties:
+✔ Every row is sorted
+✔ Every column is sorted
+❌ Entire matrix is NOT fully sorted
+
+Example:
+
+10  20  30  40
+15  25  35  45
+27  29  37  48
+32  33  39  50
+
+Target = 50
+
+Binary Search directly ❌ (matrix not fully sorted)
+
+===============================================================================
+🔟 BRUTE FORCE APPROACH
+===============================================================================
+
+Check every element.
+
+Time Complexity: O(n × m)
+Space Complexity: O(1)
+
+But we can do MUCH better.
+
+===============================================================================
+1️⃣1️⃣ OPTIMAL APPROACH (STAIRCASE SEARCH)
+===============================================================================
+
+Key Idea:
+Start from TOP-RIGHT corner.
+
+Why?
+- Left → values decrease
+- Down → values increase
+
+This gives clear decision-making.
+
+===============================================================================
+1️⃣2️⃣ DECISION RULES
+===============================================================================
+
+Let current element = matrix[i][j]
+
+If matrix[i][j] == target:
+    FOUND
+
+If matrix[i][j] < target:
+    Move DOWN (i++)
+
+If matrix[i][j] > target:
+    Move LEFT (j--)
+
+Only TWO moves possible → clean elimination.
+
+===============================================================================
+1️⃣3️⃣ LOOP CONDITIONS
+===============================================================================
+
+Start:
+i = 0
+j = m - 1
+
+Loop until:
+i < n AND j >= 0
+
+===============================================================================
+1️⃣4️⃣ FINAL CODE (PROBLEM 2)
+===============================================================================
+
+bool searchRowColSortedMatrix(vector<vector<int>>& matrix, int target)
+{
+    int n = matrix.size();
+    int m = matrix[0].size();
+
+    int i = 0;
+    int j = m - 1;
+
+    while (i < n && j >= 0)
+    {
+        if (matrix[i][j] == target)
+            return true;
+        else if (matrix[i][j] < target)
+            i++;        // move down
+        else
+            j--;        // move left
+    }
+    return false;
+}
+
+===============================================================================
+1️⃣5️⃣ TIME & SPACE COMPLEXITY (PROBLEM 2)
+===============================================================================
+
+Worst Case:
+- Moves at most n steps down
+- Moves at most m steps left
+
+Time Complexity: O(n + m)
+Space Complexity: O(1)
+
+===============================================================================
+1️⃣6️⃣ WHY CORNERS MATTER
+===============================================================================
+
+Valid starting corners:
+✔ Top-right
+✔ Bottom-left
+
+Invalid corners:
+❌ Top-left (both directions increase)
+❌ Bottom-right (both directions decrease)
+
+We need ONE increasing & ONE decreasing direction.
+
+===============================================================================
+1️⃣7️⃣ KEY TAKEAWAYS
+===============================================================================
+
+✔ Always check SORTING PROPERTY
+✔ Fully sorted matrix → Binary Search on n*m
+✔ Row & column sorted → Staircase search
+✔ Never force Binary Search blindly
+✔ Index mapping is the HEART of 2D binary search
+
+===============================================================================
+🎯 FINAL MESSAGE FROM TEACHER
+===============================================================================
+
+If you master these two problems:
+- 90% of 2D Binary Search questions are DONE
+- Interviews become EASY
+- Logic becomes sharp
+
+Homework:
+- Binary search in decreasing order array
+- Practice both problems again without seeing code
+
+JAI HIND 🇮🇳
+===============================================================================
+END OF FILE
+===============================================================================
+*/
