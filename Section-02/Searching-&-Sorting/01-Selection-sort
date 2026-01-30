@@ -1,0 +1,333 @@
+/*
+===============================================================================
+📘 DSA LECTURE NOTES – SELECTION SORT
+SORTING ALGORITHMS (DSA – 180 Days Coding Challenge)
+(Complete Classroom Reconstruction – English – GitHub Ready)
+===============================================================================
+
+⚠️ These notes are NOT a definition dump.
+⚠️ These notes reconstruct the teacher’s thinking process.
+⚠️ Real-life stories are intentionally used.
+⚠️ Logic, dry-run, code, complexity – NOTHING is skipped.
+⚠️ This lecture builds strong DSA fundamentals.
+
+===============================================================================
+0️⃣ LECTURE INTRODUCTION
+===============================================================================
+
+Hello Code Army, how are you all?
+
+I hope you all are doing great in your lives.
+
+Today we are going to study ONE OF THE MOST IMPORTANT TOPICS of DSA:
+👉 SORTING
+
+Before learning algorithms, we must understand:
+- What sorting means
+- Why sorting is required
+- How sorting helps searching
+
+Only after that, we will study:
+👉 SELECTION SORT
+
+===============================================================================
+1️⃣ WHAT IS SORTING? (REAL-LIFE MEANING)
+===============================================================================
+
+Sorting means arranging things in a proper and meaningful order.
+
+If something is randomly arranged, it becomes difficult to understand and find.
+
+----------------------------------------
+REAL-LIFE EXAMPLE 1: SCHOOL ASSEMBLY
+----------------------------------------
+
+Students are standing in a line.
+
+If the line is random:
+- Short student stands behind tall student
+- Short student cannot see the stage
+
+So teachers arrange students HEIGHT-WISE.
+
+Now:
+- Everyone can see the stage
+- The line becomes meaningful
+
+This arrangement is called SORTING.
+
+----------------------------------------
+REAL-LIFE EXAMPLE 2: DICTIONARY
+----------------------------------------
+
+In a dictionary:
+- Words are arranged alphabetically
+- First A words, then B, then C
+
+Because of sorting:
+- Searching becomes easier
+- We can decide LEFT or RIGHT immediately
+
+----------------------------------------
+REAL-LIFE EXAMPLE 3: HOTEL ROOMS
+----------------------------------------
+
+If room numbers are random:
+1, 7, 4, 5, 34
+
+Finding room 34 becomes difficult.
+
+If rooms are arranged:
+1, 2, 3, 4, 5, ...
+
+Finding room 34 becomes easy.
+
+===============================================================================
+2️⃣ WHY SORTING IS IMPORTANT IN PROGRAMMING
+===============================================================================
+
+In programming:
+- Data is huge
+- Data is mostly unsorted
+
+If data is unsorted:
+❌ Searching is slow (linear search)
+
+If data is sorted:
+✅ Faster searching (binary search)
+✅ Better performance
+
+Sorting is usually done BEFORE searching.
+
+===============================================================================
+3️⃣ ASCENDING vs DESCENDING ORDER
+===============================================================================
+
+ASCENDING ORDER (Increasing):
+Smallest → Largest
+
+Example:
+2 1 5 3 8
+After sorting:
+1 2 3 5 8
+
+DESCENDING ORDER (Decreasing):
+Largest → Smallest
+
+After sorting:
+8 5 3 2 1
+
+===============================================================================
+4️⃣ INTRODUCTION TO SORTING ALGORITHMS
+===============================================================================
+
+There are many sorting algorithms:
+- Selection Sort
+- Bubble Sort
+- Insertion Sort
+- Merge Sort
+- Quick Sort
+
+Today’s focus:
+👉 SELECTION SORT
+
+===============================================================================
+5️⃣ SELECTION SORT – CORE IDEA
+===============================================================================
+
+Selection Sort works on a very simple idea:
+
+👉 Select the smallest element
+👉 Place it at its correct position
+
+Repeat this process.
+
+That’s why the name:
+SELECTION + SORT
+
+===============================================================================
+6️⃣ REAL-LIFE ANALOGY – HEIGHT ARRANGEMENT
+===============================================================================
+
+Given heights:
+9 7 3 6 1
+
+----------------------------------------
+ROUND 1
+----------------------------------------
+Find smallest → 1  
+Place at first position
+
+1 7 3 6 9
+
+----------------------------------------
+ROUND 2
+----------------------------------------
+Find smallest from remaining → 3  
+Place at second position
+
+1 3 7 6 9
+
+----------------------------------------
+ROUND 3
+----------------------------------------
+Find smallest from remaining → 6  
+Place at third position
+
+1 3 6 7 9
+
+----------------------------------------
+OBSERVATION
+----------------------------------------
+
+After n-1 rounds, array becomes sorted.
+Last element automatically falls into place.
+
+===============================================================================
+7️⃣ NUMBER OF ROUNDS
+===============================================================================
+
+If array size = n
+
+Number of rounds = n - 1
+
+Reason:
+After placing n-1 smallest elements,
+the last element is already sorted.
+
+===============================================================================
+8️⃣ THOUGHT PROCESS (IMPORTANT)
+===============================================================================
+
+For each index i:
+- Assume arr[i] is minimum
+- Search remaining array
+- Update index if smaller element found
+- Swap with arr[i]
+
+This pattern repeats.
+
+===============================================================================
+9️⃣ FINDING INDEX OF MINIMUM ELEMENT
+===============================================================================
+
+Logic:
+- Start with minIndex = i
+- Compare with remaining elements
+- Update minIndex if smaller found
+
+This logic is reused inside Selection Sort.
+
+===============================================================================
+🔟 SELECTION SORT ALGORITHM
+===============================================================================
+
+For i = 0 to n-2:
+1. minIndex = i
+2. For j = i+1 to n-1:
+   - If arr[j] < arr[minIndex]
+     → minIndex = j
+3. Swap arr[i] and arr[minIndex]
+
+===============================================================================
+1️⃣1️⃣ C++ IMPLEMENTATION
+===============================================================================
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int arr[1000];
+    int n;
+
+    cout << "Enter size of array: ";
+    cin >> n;
+
+    cout << "Enter elements: ";
+    for(int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    for(int i = 0; i < n - 1; i++)
+    {
+        int minIndex = i;
+
+        for(int j = i + 1; j < n; j++)
+        {
+            if(arr[j] < arr[minIndex])
+                minIndex = j;
+        }
+
+        int temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+
+    cout << "Sorted Array: ";
+    for(int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+
+    return 0;
+}
+
+===============================================================================
+1️⃣2️⃣ TIME COMPLEXITY ANALYSIS
+===============================================================================
+
+Comparisons:
+(n-1) + (n-2) + ... + 1
+= n(n-1)/2
+
+Time Complexity:
+Best Case     → O(n²)
+Average Case  → O(n²)
+Worst Case    → O(n²)
+
+Selection Sort does NOT optimize for sorted data.
+
+===============================================================================
+1️⃣3️⃣ SPACE COMPLEXITY
+===============================================================================
+
+No extra data structure used.
+
+Auxiliary Space:
+👉 O(1)
+
+===============================================================================
+1️⃣4️⃣ WHY SELECTION SORT IS NOT OPTIMAL
+===============================================================================
+
+- Always performs same comparisons
+- No early stopping
+- Causes TLE on large inputs
+
+Modern problems need:
+👉 O(n log n)
+
+===============================================================================
+1️⃣5️⃣ HOMEWORK
+===============================================================================
+
+1️⃣ Reverse Selection Sort:
+- Select largest element
+- Place it at last position
+
+2️⃣ Character Array Sorting:
+- Sort characters using Selection Sort
+
+===============================================================================
+🎯 FINAL TAKEAWAY
+===============================================================================
+
+Selection Sort:
+- Simple
+- Conceptual
+- Builds strong DSA foundation
+- Not used in real-world large systems
+
+JAI HIND 🇮🇳
+===============================================================================
+END OF FILE
+===============================================================================
+*/
